@@ -1,0 +1,39 @@
+.learning-plan {
+  background-color: #3b3f8c;
+  border-radius: 12px;
+  padding: 30px;
+  flex: 1;
+  color: white;
+}
+
+.learning-plan h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.course-list {
+  list-style: none;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.course-icon {
+  font-size: 20px;
+  margin-right: 12px;
+  color: #a89fd8;
+}
+
+.course-name {
+  flex: 1;
+  font-size: 15px;
+}
+
+.course-progress {
+  font-size: 13px;
+  color: #a89fd8;
+}
