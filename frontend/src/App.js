@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import WelcomeBanner from './components/WelcomeBanner';
 import GetStartedCard from './components/GetStartedCard';
 import LearningPlan from './components/LearningPlan';
+import ExternalResources from './components/ExternalResources';
 
 function App() {
   return (
@@ -11,7 +12,10 @@ function App() {
       <Navbar />
       <WelcomeBanner />
       <div className="main-content">
-        <GetStartedCard />
+        <div className="left-column">
+          <GetStartedCard />
+          <ExternalResources />
+        </div>
         <LearningPlan />
       </div>
     </div>

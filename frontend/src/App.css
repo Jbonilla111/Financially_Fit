@@ -14,3 +14,10 @@ body {
   gap: 20px;
   padding: 20px 30px;
 }
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}

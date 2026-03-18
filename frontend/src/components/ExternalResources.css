@@ -1,0 +1,24 @@
+.external-resources {
+  background-color: #c9b8e8;
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.resources-text h2 {
+  color: #6a0dad;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.resources-text p {
+  color: #555;
+  font-size: 14px;
+}
+
+.resources-image {
+  font-size: 60px;
+}
