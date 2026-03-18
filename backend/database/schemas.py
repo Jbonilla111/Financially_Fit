@@ -52,3 +52,34 @@ class Course(CourseBase):
     titles: List[Title] = []
     class Config:
         orm_mode = True
+
+# --- User Progress ---
+class UserProgressBase(BaseModel):
+    course_id: Optional[int] = None
+    title_id: Optional[int] = None
+    completed: bool = False
+
+class UserProgressCreate(UserProgressBase):
+    pass
+
+class UserProgress(UserProgressBase):
+    id: int
+    user_id: int
+
+    class Config:
+        orm_mode = True
+
+# --- User ---
+class UserBase(BaseModel):
+    username: str
+    email: str
+
+class UserCreate(UserBase):
+    password: str
+
+class User(UserBase):
+    id: int
+    progress: List[UserProgress] = []
+
+    class Config:
+        orm_mode = True

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -40,3 +40,26 @@ class Question(Base):
     title_id = Column(Integer, ForeignKey("titles.id"))
 
     title = relationship("Title", back_populates="questions")
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+
+    progress = relationship("UserProgress", back_populates="user")
+
+class UserProgress(Base):
+    __tablename__ = "user_progress"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=True)
+    title_id = Column(Integer, ForeignKey("titles.id"), nullable=True)
+    completed = Column(Boolean, default=False)
+
+    user = relationship("User", back_populates="progress")
+    course = relationship("Course")
+    title = relationship("Title")
