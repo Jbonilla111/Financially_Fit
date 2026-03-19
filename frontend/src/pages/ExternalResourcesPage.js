@@ -1,5 +1,5 @@
 import React from 'react';
-import './ExternalResources.css';
+import './ExternalResourcesPage.css';
 import { useNavigate } from 'react-router-dom';
 
 function ExternalResources() {
