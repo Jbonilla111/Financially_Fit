@@ -1,22 +1,34 @@
-import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar';
-import WelcomeBanner from './components/WelcomeBanner';
-import GetStartedCard from './components/GetStartedCard';
-import LearningPlan from './components/LearningPlan';
-import ExternalResources from './components/ExternalResources';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import CourseCard from "./components/CourseCard";
+import CategoryTabs from "./components/CategoryTabs";
 
 function App() {
+  const courses = [
+    { title: "Foundations of Life Insurance", hours: "16 Hours" },
+    { title: "Retirement Planning", hours: "16 Hours" },
+    { title: "Debt Management", hours: "16 Hours" },
+    { title: "Emergency Fund Building", hours: "23 Hours" }
+  ];
+
   return (
     <div className="app">
       <Navbar />
-      <WelcomeBanner />
-      <div className="main-content">
-        <div className="left-column">
-          <GetStartedCard />
-          <ExternalResources />
+
+      <div className="content">
+        <h1 className="page-title">Courses</h1>
+
+        <CategoryTabs />
+
+        <div className="grid">
+          {courses.map((course, index) => (
+            <CourseCard
+              key={index}
+              title={course.title}
+              hours={course.hours}
+            />
+          ))}
         </div>
-        <LearningPlan />
       </div>
     </div>
   );
