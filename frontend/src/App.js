@@ -11,6 +11,7 @@ import ExternalResourcesPage from './pages/ExternalResourcesPage';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </div>
   );
