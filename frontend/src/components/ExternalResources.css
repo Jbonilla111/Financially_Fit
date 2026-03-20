@@ -1,0 +1,32 @@
+.external-resources {
+  background: linear-gradient(135deg, #c9b8e8, #b8a8d8);
+  border-radius: 16px;
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(201, 184, 232, 0.4);
+  min-height: 180px;
+  transition: transform 0.2s;
+}
+
+.external-resources:hover {
+  transform: translateY(-2px);
+}
+
+.resources-text h2 {
+  color: #5a3d8a;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.resources-text p {
+  color: #6a5a7a;
+  font-size: 14px;
+}
+
+.resources-image {
+  font-size: 70px;
+}
