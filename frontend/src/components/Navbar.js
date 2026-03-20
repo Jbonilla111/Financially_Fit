@@ -3,6 +3,7 @@ import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 import { RiContactsLine } from 'react-icons/ri';
 import { FcCalculator } from 'react-icons/fc';
+import ProfileSidebar from './ProfileSidebar';
 
 const allItems = [
   { name: 'Life Insurance', type: 'Course' },
@@ -25,6 +26,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const results = query.length > 0
     ? allItems.filter(item =>
@@ -54,7 +56,7 @@ function Navbar() {
           <span className="nav-icon">
             <RiContactsLine size={24} color="white" />
           </span>
-          <span className="nav-icon">👤</span>
+          <span className="nav-icon" onClick={() => setProfileOpen(!profileOpen)}>👤</span>
         </div>
       </nav>
 
@@ -94,6 +96,8 @@ function Navbar() {
           )}
         </div>
       )}
+
+      {profileOpen && <ProfileSidebar onClose={() => setProfileOpen(false)} />}
     </div>
   );
 }
