@@ -12,6 +12,7 @@ import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
+import HomeFooterSection from './components/HomeFooterSection';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               </div>
               <LearningPlan />
             </div>
+            <HomeFooterSection />
           </>
         } />
         <Route path="/tools" element={<Tools />} />
