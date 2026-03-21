@@ -1,0 +1,40 @@
+.get-started-card {
+  background: linear-gradient(135deg, #4a9b8e, #3d8a7d);
+  border-radius: 16px;
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  box-shadow: 0 4px 15px rgba(74, 155, 142, 0.3);
+  min-height: 200px;
+}
+
+.get-started-text h2 {
+  color: white;
+  font-size: 22px;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.get-started-btn {
+  background: linear-gradient(135deg, #f4a44a, #e8943a);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(244, 164, 74, 0.4);
+}
+
+.get-started-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  transition: all 0.2s;
+}
+
+.get-started-image {
+  font-size: 90px;
+}
