@@ -83,3 +83,19 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+        
+class ToolCalculationBase(BaseModel):
+    tool_type: str
+    inputs: str
+    results: str
+    created_at: str
+
+class ToolCalculationCreate(ToolCalculationBase):
+    pass
+
+class ToolCalculation(ToolCalculationBase):
+    id: int
+    user_id: int
+
+    class Config:
+        orm_mode = True

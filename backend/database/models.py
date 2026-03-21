@@ -50,6 +50,7 @@ class User(Base):
     hashed_password = Column(String)
 
     progress = relationship("UserProgress", back_populates="user")
+    calculations = relationship("ToolCalculation", back_populates="user")
 
 class UserProgress(Base):
     __tablename__ = "user_progress"
@@ -63,3 +64,15 @@ class UserProgress(Base):
     user = relationship("User", back_populates="progress")
     course = relationship("Course")
     title = relationship("Title")
+
+class ToolCalculation(Base):
+    __tablename__ = "tool_calculations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    tool_type = Column(String)
+    inputs = Column(Text)
+    results = Column(Text)
+    created_at = Column(String)
+
+    user = relationship("User", back_populates="calculations")
