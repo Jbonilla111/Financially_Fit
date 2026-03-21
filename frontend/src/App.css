@@ -1,37 +1,28 @@
-/* GENERAL */
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f0f2f5;
 }
 
-.app {
-  display: flex;
-}
 
-/* CONTENT AREA */
-.content {
-  flex: 1;
-  padding: 30px;
-}
-
-/* TITLE */
-.page-title {
-  margin-bottom: 20px;
-}
 
 /* TABS */
 .tabs {
   display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
+  gap: 15px;
+  margin-bottom: 50px;
 }
 
 .tab {
-  background-color: #2d2d44;
+  background-color: #0e0e50;
   color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 15px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
@@ -59,13 +50,6 @@ body {
 .card:hover {
   transform: translateY(-5px);
 }
-
-/* TOP BAR (dark header like design) */
-.card-top {
-  height: 80px;
-  background-color: #2d2d44;
-}
-
 /* BODY */
 .card-body {
   padding: 15px;
@@ -79,4 +63,21 @@ body {
 .card-body p {
   color: teal;
   font-size: 13px;
+}
+/* TOP BAR (dark header like design) */
+.card-top {
+  height: 60px;
+  background-color: teal;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.card-icon {
+  color: #0a086d; 
+}
+/* TITLE */
+.page-title {
+  
+  margin-bottom: 20px;
 }

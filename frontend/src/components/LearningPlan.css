@@ -1,14 +1,16 @@
 .learning-plan {
-  background-color: #3b3f8c;
-  border-radius: 12px;
-  padding: 30px;
+  background: linear-gradient(135deg, #3b3f8c, #4b4f9c);
+  border-radius: 16px;
+  padding: 35px;
   flex: 1;
   color: white;
+  box-shadow: 0 4px 15px rgba(59, 63, 140, 0.3);
+  min-height: 420px;
 }
 
 .learning-plan h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
+  font-size: 24px;
+  margin-bottom: 25px;
 }
 
 .course-list {
@@ -18,13 +20,20 @@
 .course-item {
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: 14px 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.2s;
+}
+
+.course-item:hover {
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding-left: 8px;
 }
 
 .course-icon {
   font-size: 20px;
-  margin-right: 12px;
+  margin-right: 14px;
   color: #a89fd8;
 }
 
@@ -36,4 +45,7 @@
 .course-progress {
   font-size: 13px;
   color: #a89fd8;
+  background-color: rgba(255,255,255,0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
 }
