@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
+import Courses from './pages/Courses';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/courses" element={<Courses />} />
       </Routes>
     </div>
   );
