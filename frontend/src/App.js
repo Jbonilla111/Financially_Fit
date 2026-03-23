@@ -14,10 +14,13 @@ import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
 import Courses from './pages/Courses';
+import { useUser } from './context/UserContext';
 
 function App() {
+  const { darkMode } = useUser();
+
   return (
-    <div className="app">
+    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
       <Routes>
         <Route path="/" element={
           <>

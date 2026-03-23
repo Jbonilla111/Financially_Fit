@@ -12,12 +12,18 @@ export function UserProvider({ children }) {
     goalMinutes: 60,
   });
 
+  const [darkMode, setDarkMode] = useState(false);
+
   const updateUser = (updatedFields) => {
     setUser(prev => ({ ...prev, ...updatedFields }));
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
+
   return (
-    <UserContext.Provider value={{ user, updateUser }}>
+    <UserContext.Provider value={{ user, updateUser, darkMode, toggleDarkMode }}>
       {children}
     </UserContext.Provider>
   );

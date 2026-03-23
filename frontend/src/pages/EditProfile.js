@@ -4,12 +4,11 @@ import Navbar from '../components/Navbar';
 import { useUser } from '../context/UserContext';
 
 function EditProfile() {
-  const { user, updateUser } = useUser();
+  const { user, updateUser, darkMode, toggleDarkMode } = useUser();
   const [username, setUsername] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
   const [email, setEmail] = useState(user.email);
   const [pushNotifications, setPushNotifications] = useState(true);
-  const [darkTheme, setDarkTheme] = useState(false);
   const [saved, setSaved] = useState(false);
 
   const handleUpdate = () => {
@@ -19,7 +18,7 @@ function EditProfile() {
   };
 
   return (
-    <div className={`edit-profile-page ${darkTheme ? 'dark' : ''}`}>
+    <div className="edit-profile-page">
       <Navbar />
       <div className="edit-profile-container">
         <div className="edit-profile-card">
@@ -69,8 +68,8 @@ function EditProfile() {
             <div className="toggle-row">
               <span>Turn Dark Theme</span>
               <div
-                className={`toggle ${darkTheme ? 'on' : ''}`}
-                onClick={() => setDarkTheme(!darkTheme)}
+                className={`toggle ${darkMode ? 'on' : ''}`}
+                onClick={toggleDarkMode}
               >
                 <div className="toggle-knob" />
               </div>
