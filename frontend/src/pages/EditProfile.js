@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import './EditProfile.css';
 import Navbar from '../components/Navbar';
+import { useUser } from '../context/UserContext';
 
 function EditProfile() {
-  const [username, setUsername] = useState('John Smith');
-  const [phone, setPhone] = useState('+1 555 5555 55');
-  const [email, setEmail] = useState('example@example.com');
+  const { user, updateUser } = useUser();
+  const [username, setUsername] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+  const [email, setEmail] = useState(user.email);
   const [pushNotifications, setPushNotifications] = useState(true);
   const [darkTheme, setDarkTheme] = useState(false);
   const [saved, setSaved] = useState(false);
 
   const handleUpdate = () => {
+    updateUser({ name: username, phone, email });
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
@@ -24,7 +27,7 @@ function EditProfile() {
 
           <div className="edit-avatar">
             <div className="edit-avatar-circle">👤</div>
-            <p className="edit-name">John Smith</p>
+            <p className="edit-name">{user.name}</p>
             <p className="edit-subtitle">Account Settings</p>
           </div>
 
