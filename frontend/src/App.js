@@ -18,25 +18,29 @@ function App() {
   return (
     <div className="app">
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={
-          <>
-            <Navbar />
-            <WelcomeBanner />
-            <div className="main-content">
-              <div className="left-column">
-                <GetStartedCard />
-                <ExternalResources />
+          localStorage.getItem('user') ? (
+            <>
+              <Navbar />
+              <WelcomeBanner />
+              <div className="main-content">
+                <div className="left-column">
+                  <GetStartedCard />
+                  <ExternalResources />
+                </div>
+                <LearningPlan />
               </div>
-              <LearningPlan />
-            </div>
-            <HomeFooterSection />
-          </>
+              <HomeFooterSection />
+            </>
+          ) : (
+            <Login />
+          )
         } />
         <Route path="/tools" element={<Tools />} />
         <Route path="/resources" element={<ExternalResourcesPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </div>

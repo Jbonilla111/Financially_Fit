@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../api';
 
 function Login() {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
@@ -21,9 +22,17 @@ function Login() {
       setError('Password must be at least 6 characters');
       return;
     }
-    // TODO: connect to backend api.js
-    setError('');
-    navigate('/');
+    
+    try {
+      const user = await loginUser(email, password);
+      // Save user to local storage for fake auth session
+      localStorage.setItem('user', JSON.stringify(user));
+      setError('');
+      // Force reload to re-evaluate localStorage in App.js
+      window.location.href = '/';
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (

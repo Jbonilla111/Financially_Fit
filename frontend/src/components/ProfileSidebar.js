@@ -7,10 +7,14 @@ function ProfileSidebar({ onClose }) {
   const navigate = useNavigate();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+
   const handleLogout = () => {
+    localStorage.removeItem('user');
     setShowLogoutModal(false);
     onClose();
-    navigate('/login');
+    window.location.href = '/login';
   };
 
   return (
@@ -24,8 +28,8 @@ function ProfileSidebar({ onClose }) {
 
         <div className="sidebar-avatar">
           <div className="avatar-circle">👤</div>
-          <h3>John Smith</h3>
-          <p className="sidebar-id">ID: 25030024</p>
+          <h3>{user ? user.username : 'Learner'}</h3>
+          <p className="sidebar-id">{user ? user.email : 'No email'}</p>
         </div>
 
         <div className="sidebar-menu">

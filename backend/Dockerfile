@@ -1,14 +1,14 @@
-FROM python:3.12-alpine
+FROM python:3.12-slim
 
-# Apply security updates to Alpine base packages
-RUN apk update && apk upgrade --no-cache
+# Apply security updates
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Create a non-root user for security (Alpine syntax)
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# Create a non-root user
+RUN addgroup --system appgroup && adduser --system --group appuser
 
 # Set working directory
 WORKDIR /app

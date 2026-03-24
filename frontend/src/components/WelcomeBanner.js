@@ -1,7 +1,11 @@
 import React from 'react';
 import './WelcomeBanner.css';
 
-function WelcomeBanner({ userName = 'Kristin', minutesLearned = 46, goalMinutes = 60 }) {
+function WelcomeBanner({ minutesLearned = 46, goalMinutes = 60 }) {
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const userName = user ? user.username : 'Learner';
+
   const progressPercent = Math.min((minutesLearned / goalMinutes) * 100, 100);
 
   return (

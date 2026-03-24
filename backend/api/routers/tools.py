@@ -11,23 +11,20 @@ router = APIRouter(prefix="/tools", tags=["Tools"])
 # --- LOAN CALCULATOR ---
 @router.post("/loan")
 def calculate_loan(
-    loan_amount: float,
-    annual_interest_rate: float,
-    loan_term_years: int,
-    user_id: int,
+    request: schemas.LoanCalculationRequest,
     db: Session = Depends(get_db)
 ):
     # Calculate monthly payment
-    monthly_rate = annual_interest_rate / 100 / 12
-    n_payments = loan_term_years * 12
+    monthly_rate = request.annual_interest_rate / 100 / 12
+    n_payments = request.loan_term_years * 12
 
     if monthly_rate == 0:
-        monthly_payment = loan_amount / n_payments
+        monthly_payment = request.loan_amount / n_payments
     else:
-        monthly_payment = loan_amount * (monthly_rate * (1 + monthly_rate) ** n_payments) / ((1 + monthly_rate) ** n_payments - 1)
+        monthly_payment = request.loan_amount * (monthly_rate * (1 + monthly_rate) ** n_payments) / ((1 + monthly_rate) ** n_payments - 1)
 
     total_payment = monthly_payment * n_payments
-    total_interest = total_payment - loan_amount
+    total_interest = total_payment - request.loan_amount
 
     results = {
         "monthly_payment": round(monthly_payment, 2),
@@ -37,9 +34,9 @@ def calculate_loan(
 
     # Save to database
     db_calc = models.ToolCalculation(
-        user_id=user_id,
+        user_id=request.user_id,
         tool_type="loan",
-        inputs=json.dumps({"loan_amount": loan_amount, "annual_interest_rate": annual_interest_rate, "loan_term_years": loan_term_years}),
+        inputs=request.json(exclude={"user_id"}),
         results=json.dumps(results),
         created_at=str(__import__('datetime').datetime.now())
     )
@@ -51,30 +48,26 @@ def calculate_loan(
 # --- Investment calculator ---
 @router.post("/investment")
 def calculate_investment(
-    initial_amount: float,
-    annual_interest_rate: float,
-    years: int,
-    monthly_contribution: float,
-    user_id: int,
+    request: schemas.InvestmentCalculationRequest,
     db: Session = Depends(get_db)
 ):
-    monthly_rate = annual_interest_rate / 100 / 12
-    n_payments = years * 12
+    monthly_rate = request.annual_interest_rate / 100 / 12
+    n_payments = request.years * 12
 
-    future_value = initial_amount * (1 + monthly_rate) ** n_payments
-    future_value += monthly_contribution * (((1 + monthly_rate) ** n_payments - 1) / monthly_rate)
+    future_value = request.initial_amount * (1 + monthly_rate) ** n_payments
+    future_value += request.monthly_contribution * (((1 + monthly_rate) ** n_payments - 1) / monthly_rate)
 
     results = {
         "future_value": round(future_value, 2),
-        "total_contributed": round(initial_amount + (monthly_contribution * n_payments), 2),
-        "total_interest_earned": round(future_value - initial_amount - (monthly_contribution * n_payments), 2)
+        "total_contributed": round(request.initial_amount + (request.monthly_contribution * n_payments), 2),
+        "total_interest_earned": round(future_value - request.initial_amount - (request.monthly_contribution * n_payments), 2)
     }
 
     # Save to database
     db_calc = models.ToolCalculation(
-        user_id=user_id,
+        user_id=request.user_id,
         tool_type="investment",
-        inputs=json.dumps({"initial_amount": initial_amount, "annual_interest_rate": annual_interest_rate, "years": years, "monthly_contribution": monthly_contribution}),
+        inputs=request.json(exclude={"user_id"}),
         results=json.dumps(results),
         created_at=str(__import__('datetime').datetime.now())
     )
@@ -86,19 +79,15 @@ def calculate_investment(
 # --- Savings calculator ---
 @router.post("/savings")
 def calculate_savings(
-    savings_goal: float,
-    current_savings: float,
-    monthly_contribution: float,
-    annual_interest_rate: float,
-    user_id: int,
+    request: schemas.SavingsCalculationRequest,
     db: Session = Depends(get_db)
 ):
-    monthly_rate = annual_interest_rate / 100 / 12
+    monthly_rate = request.annual_interest_rate / 100 / 12
     months = 0
-    current = current_savings
+    current = request.current_savings
 
-    while current < savings_goal and months < 1200:
-        current = current * (1 + monthly_rate) + monthly_contribution
+    while current < request.savings_goal and months < 1200:
+        current = current * (1 + monthly_rate) + request.monthly_contribution
         months += 1
 
     results = {
@@ -109,9 +98,9 @@ def calculate_savings(
 
     # Save to database
     db_calc = models.ToolCalculation(
-        user_id=user_id,
+        user_id=request.user_id,
         tool_type="savings",
-        inputs=json.dumps({"savings_goal": savings_goal, "current_savings": current_savings, "monthly_contribution": monthly_contribution, "annual_interest_rate": annual_interest_rate}),
+        inputs=request.json(exclude={"user_id"}),
         results=json.dumps(results),
         created_at=str(__import__('datetime').datetime.now())
     )
@@ -123,28 +112,25 @@ def calculate_savings(
 # --- Insurance calculator ---
 @router.post("/insurance")
 def calculate_insurance(
-    age: int,
-    coverage_amount: float,
-    term_years: int,
-    user_id: int,
+    request: schemas.InsuranceCalculationRequest,
     db: Session = Depends(get_db)
 ):
     # Basic insurance estimate formula
     base_rate = 0.001
-    age_factor = 1 + (age - 25) * 0.03
-    monthly_premium = (coverage_amount * base_rate * age_factor) / 12
+    age_factor = 1 + (request.age - 25) * 0.03
+    monthly_premium = (request.coverage_amount * base_rate * age_factor) / 12
 
     results = {
         "monthly_premium": round(monthly_premium, 2),
         "annual_premium": round(monthly_premium * 12, 2),
-        "total_cost": round(monthly_premium * 12 * term_years, 2)
+        "total_cost": round(monthly_premium * 12 * request.term_years, 2)
     }
 
     # Save to database
     db_calc = models.ToolCalculation(
-        user_id=user_id,
+        user_id=request.user_id,
         tool_type="insurance",
-        inputs=json.dumps({"age": age, "coverage_amount": coverage_amount, "term_years": term_years}),
+        inputs=request.json(exclude={"user_id"}),
         results=json.dumps(results),
         created_at=str(__import__('datetime').datetime.now())
     )
