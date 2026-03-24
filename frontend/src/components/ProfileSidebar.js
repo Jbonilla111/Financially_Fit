@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './ProfileSidebar.css';
 import { useNavigate } from 'react-router-dom';
 import { FaUserEdit, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { useUser } from '../context/UserContext';
 
 function ProfileSidebar({ onClose }) {
   const navigate = useNavigate();
+  const { user } = useUser();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = () => {
@@ -24,8 +26,8 @@ function ProfileSidebar({ onClose }) {
 
         <div className="sidebar-avatar">
           <div className="avatar-circle">👤</div>
-          <h3>John Smith</h3>
-          <p className="sidebar-id">ID: 25030024</p>
+          <h3>{user.name}</h3>
+          <p className="sidebar-id">ID: {user.id}</p>
         </div>
 
         <div className="sidebar-menu">

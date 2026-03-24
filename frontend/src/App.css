@@ -7,6 +7,7 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f2f5;
+  transition: background-color 0.3s ease;
 }
 
 
@@ -18,66 +19,270 @@ body {
   margin-bottom: 50px;
 }
 
-.tab {
-  background-color: #0e0e50;
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+/* Dark Mode Global */
+.dark-mode {
+  background-color: #1a1a2e;
   color: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.tab:hover {
-  background-color: #444466;
+.dark-mode body {
+  background-color: #1a1a2e;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+/* Navbar */
+.dark-mode .navbar {
+  background-color: #16213e;
 }
 
-/* CARD */
-.card {
-  background: #d9d9d9;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.2s ease;
+/* Welcome Banner */
+.dark-mode .welcome-banner {
+  background: linear-gradient(135deg, #16213e, #0f3460);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
-/* BODY */
-.card-body {
-  padding: 15px;
+.dark-mode .progress-box {
+  background-color: #0f3460;
+  color: white;
 }
 
-.card-body h3 {
-  font-size: 15px;
-  margin-bottom: 8px;
+.dark-mode .progress-label {
+  color: rgba(255,255,255,0.7);
 }
 
-.card-body p {
-  color: teal;
-  font-size: 13px;
-}
-/* TOP BAR (dark header like design) */
-.card-top {
-  height: 60px;
-  background-color: teal;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
+.dark-mode .time-bold {
+  color: #a89fd8;
 }
 
-.card-icon {
-  color: #0a086d; 
+/* Cards */
+.dark-mode .get-started-card {
+  background: linear-gradient(135deg, #16213e, #0f3460);
 }
-/* TITLE */
-.page-title {
-  
-  margin-bottom: 20px;
+
+.dark-mode .learning-plan {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+}
+
+.dark-mode .external-resources {
+  background: linear-gradient(135deg, #2d2b55, #3d3b65);
+}
+
+/* Footer Section */
+.dark-mode .quote-card {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+}
+
+.dark-mode .tip-card {
+  background-color: #16213e;
+  color: white;
+}
+
+.dark-mode .tip-card h3 {
+  color: white;
+}
+
+.dark-mode .tip-card p {
+  color: rgba(255,255,255,0.7);
+}
+
+.dark-mode .tips-section h2 {
+  color: #a89fd8;
+}
+
+/* Tools Page */
+.dark-mode .tools-page {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .tools-container {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .tabs {
+  background-color: #16213e;
+  border-color: #0f3460;
+}
+
+.dark-mode .tab-btn {
+  background-color: #16213e;
+  color: white;
+  border-color: #0f3460;
+}
+
+.dark-mode .tab-btn.active {
+  background-color: #0f3460;
+  color: #a89fd8;
+}
+
+.dark-mode .calculator {
+  background-color: #1a1a2e;
+  color: white;
+}
+
+.dark-mode .calculator h2 {
+  color: #a89fd8;
+}
+
+.dark-mode .calculator p {
+  color: rgba(255,255,255,0.7);
+}
+
+.dark-mode .calculator label {
+  color: rgba(255,255,255,0.9);
+}
+
+.dark-mode .calculator input {
+  background-color: #0f3460;
+  color: white;
+  border-color: #16213e;
+}
+
+.dark-mode .insurance-select {
+  background-color: #0f3460;
+  color: white;
+  border-color: #16213e;
+}
+
+.dark-mode .result-item {
+  border-color: #0f3460;
+  color: white;
+}
+
+/* Resources Page */
+.dark-mode .resources-page {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .resources-container h1 {
+  color: #a89fd8;
+}
+
+.dark-mode .resources-subtitle {
+  color: rgba(255,255,255,0.7);
+}
+
+.dark-mode .filter-btn {
+  background-color: #16213e;
+  color: white;
+  border-color: #0f3460;
+}
+
+.dark-mode .filter-btn.active {
+  background-color: #0f3460;
+  color: white;
+}
+
+.dark-mode .resource-card {
+  background-color: #16213e;
+  color: white;
+}
+
+.dark-mode .resource-card h3 {
+  color: white;
+}
+
+.dark-mode .resource-card p {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Courses Page */
+.dark-mode .courses-page {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .courses-title {
+  color: #a89fd8;
+}
+
+.dark-mode .courses-subtitle {
+  color: rgba(255,255,255,0.7);
+}
+
+.dark-mode .courses-tab {
+  background-color: #16213e;
+  color: white;
+  border-color: #0f3460;
+}
+
+.dark-mode .courses-tab.active {
+  background-color: #0f3460;
+  color: white;
+}
+
+.dark-mode .card {
+  background-color: #16213e;
+}
+
+.dark-mode .card-body h3 {
+  color: white;
+}
+
+/* Settings Page */
+.dark-mode .settings-page {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .settings-title {
+  color: #a89fd8;
+}
+
+.dark-mode .settings-card {
+  background-color: #16213e;
+  color: white;
+}
+
+.dark-mode .settings-card h2 {
+  color: white;
+}
+
+.dark-mode .toggle-title {
+  color: white;
+}
+
+.dark-mode .toggle-subtitle {
+  color: rgba(255,255,255,0.6);
+}
+
+.dark-mode .settings-card input {
+  background-color: #0f3460;
+  color: white;
+  border-color: #16213e;
+}
+
+.dark-mode .settings-card label {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Edit Profile Page */
+.dark-mode .edit-profile-page {
+  background-color: #1a1a2e;
+}
+
+/* Search Dropdown */
+.dark-mode .search-dropdown {
+  background-color: #16213e;
+}
+
+.dark-mode .search-input {
+  background-color: #0f3460;
+  color: white;
+  border-color: #16213e;
+}
+
+.dark-mode .search-result-item {
+  border-color: #0f3460;
+  color: white;
+}
+
+.dark-mode .search-result-item:hover {
+  background-color: #0f3460;
+}
+
+.dark-mode .search-no-results {
+  color: rgba(255,255,255,0.7);
 }
