@@ -10,7 +10,13 @@ body {
   transition: background-color 0.3s ease;
 }
 
-
+.main-content {
+  display: flex;
+  gap: 24px;
+  padding: 24px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
 /* TABS */
 .tabs {
