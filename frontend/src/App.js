@@ -17,7 +17,7 @@ import Courses from './pages/Courses';
 import { useUser } from './context/UserContext';
 import CourseLanding from './pages/CourseLanding';
 import CourseLesson from './pages/CourseLesson'; // Imported the dynamic Lesson component
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
   const { darkMode } = useUser();
@@ -42,7 +42,7 @@ function App() {
               <HomeFooterSection />
             </>
           ) : (
-            <Login />
+            <Navigate to="/login" replace />
           )
         } />
         <Route path="/tools" element={<Tools />} />
