@@ -30,7 +30,7 @@ def login_user(user_login: schemas.UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     
     fake_hashed_password = user_login.password + "notreallyhashed"
-    if user.hashed_password != fake_hashed_password:
+    if user.hashed_password != fake_hashed_password: # type: ignore
         raise HTTPException(status_code=400, detail="Invalid credentials")
         
     return user

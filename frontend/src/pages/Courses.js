@@ -1,25 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Courses.css';
 import CourseCard from '../components/CourseCard';
+// Keep icons for mapping dynamically
 import { FaBook, FaPiggyBank, FaCreditCard, FaUmbrella, FaChartLine } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; 
+import { getCourses } from '../api'; // Import new API function
 
-const allCourses = [
-  { id: 'foundations-life-insurance', title: 'Foundations of Life Insurance', hours: '16 Hours', icon: FaUmbrella, category: 'Life Insurance' },
-  { id: 'retirement', title: 'Retirement Planning', hours: '16 Hours', icon: FaPiggyBank, category: 'Retirement Planning' },
-  { id: 'debt', title: 'Debt Management', hours: '16 Hours', icon: FaCreditCard, category: 'Debt Management' },
-  { id: 'emergency-fund', title: 'Emergency Fund Building', hours: '23 Hours', icon: FaBook, category: 'Emergency Fund Building' },
-  { id: 'investment', title: 'Investment Basics', hours: '20 Hours', icon: FaChartLine, category: 'Investment Basics' },
-];
-
-const categories = ['All', 'Life Insurance', 'Retirement Planning', 'Debt Management', 'Emergency Fund Building', 'Investment Basics'];
+// A simple dictionary to fetch a random or associated icon based on course keyword
+const getIconForCourse = (courseName) => {
+  const lowerName = courseName.toLowerCase();
+  if (lowerName.includes('insurance')) return FaUmbrella;
+  if (lowerName.includes('retirement')) return FaPiggyBank;
+  if (lowerName.includes('debt')) return FaCreditCard;
+  if (lowerName.includes('invest')) return FaChartLine;
+  return FaBook; // Default icon
+};
 
 function Courses() {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [courses, setCourses] = useState([]); // State for DB courses
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filtered = activeCategory === 'All'
-    ? allCourses
-    : allCourses.filter(c => c.category === activeCategory);
+  // Fetch courses from backend API on component mount
+  useEffect(() => {
+    const fetchAllCourses = async () => {
+      try {
+        const data = await getCourses();
+        setCourses(data); // Expecting array of {id, name, description, ...}
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load courses.');
+        setLoading(false);
+      }
+    };
+    fetchAllCourses();
+  }, []);
+
+  if (loading) return <div className="courses-page"><p style={{padding: '2rem'}}>Loading courses...</p></div>;
+  if (error) return <div className="courses-page"><p style={{padding: '2rem', color: 'red'}}>{error}</p></div>;
 
   return (
     <div className="courses-page">
@@ -27,25 +46,15 @@ function Courses() {
         <h1 className="courses-title">Courses</h1>
         <p className="courses-subtitle">Choose a course and start your financial literacy journey today!</p>
 
-        <div className="courses-tabs">
-          {categories.map((cat, index) => (
-            <button
-              key={index}
-              className={`courses-tab ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
         <div className="courses-grid">
-          {filtered.map((course, index) => (
-            <Link to={`/courses/${course.id}`} key={index} style={{ textDecoration: 'none' }}>
+          {courses.map((course) => (
+            // Route dynamically to the int ID from DB
+            <Link to={`/courses/${course.id}`} key={course.id} style={{ textDecoration: 'none' }}>
               <CourseCard
-                title={course.title}
-                hours={course.hours}
-                icon={course.icon}
+                title={course.name}
+                // Placeholder hours since DB doesn't have duration currently
+                hours="Self-paced" 
+                icon={getIconForCourse(course.name)}
               />
             </Link>
           ))}

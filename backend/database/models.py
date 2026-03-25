@@ -37,6 +37,7 @@ class Question(Base):
     id = Column(Integer, primary_key=True, index=True)
     question_text = Column(String)
     answer_text = Column(Text)
+    options = Column(Text, nullable=True)
     title_id = Column(Integer, ForeignKey("titles.id"))
 
     title = relationship("Title", back_populates="questions")
