@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../api';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
@@ -27,9 +28,17 @@ function SignUp() {
       setError('Passwords do not match');
       return;
     }
-    // TODO: connect to backend api.js
-    setError('');
-    navigate('/');
+    
+    try {
+      const user = await registerUser(name, email, password);
+      // Save user to local storage for fake auth session
+      localStorage.setItem('user', JSON.stringify(user));
+      setError('');
+      // Force reload to re-evaluate localStorage in App.js
+      window.location.href = '/';
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (

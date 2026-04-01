@@ -23,6 +23,18 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
+@router.post("/login", response_model=schemas.User)
+def login_user(user_login: schemas.UserLogin, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == user_login.email).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+    
+    fake_hashed_password = user_login.password + "notreallyhashed"
+    if user.hashed_password != fake_hashed_password: # type: ignore
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+        
+    return user
+
 @router.get("/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == user_id).first()

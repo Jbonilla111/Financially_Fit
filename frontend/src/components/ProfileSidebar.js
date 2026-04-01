@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import './ProfileSidebar.css';
 import { useNavigate } from 'react-router-dom';
 import { FaUserEdit, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { useUser } from '../context/UserContext';
 
 function ProfileSidebar({ onClose }) {
   const navigate = useNavigate();
+  const { user: contextUser } = useUser();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
+  const userStr = localStorage.getItem('user');
+  const localUser = userStr ? JSON.parse(userStr) : null;
+
   const handleLogout = () => {
+    localStorage.removeItem('user');
     setShowLogoutModal(false);
     onClose();
-    navigate('/login');
+    window.location.href = '/login';
   };
 
   return (
@@ -24,8 +30,8 @@ function ProfileSidebar({ onClose }) {
 
         <div className="sidebar-avatar">
           <div className="avatar-circle">👤</div>
-          <h3>John Smith</h3>
-          <p className="sidebar-id">ID: 25030024</p>
+          <h3>{localUser ? localUser.username : (contextUser?.name || 'Learner')}</h3>
+          <p className="sidebar-id">{localUser ? localUser.email : (contextUser ? `ID: ${contextUser.id}` : 'No email')}</p>
         </div>
 
         <div className="sidebar-menu">

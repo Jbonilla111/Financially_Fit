@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from database import models
 from database.database import engine
@@ -8,6 +9,15 @@ from api.routers import courses, titles, users, tools
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Financially Fit API")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace with your frontend URL in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include the routers
 app.include_router(courses.router)

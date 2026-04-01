@@ -1,0 +1,95 @@
+.course-landing-page {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+.course-landing-card {
+  background: white;
+  border-radius: 16px;
+  overflow: visible; /* <-- allow the icon to float outside */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s;
+  padding-bottom: 20px;
+  padding-top: 60px; /* add top padding for icon */
+  position: relative;
+}
+
+.course-landing-card:hover {
+  transform: translateY(-4px);
+}
+
+.course-landing-icon {
+  font-size: 50px;
+  color: white;
+  position: absolute;
+  top: -40px; /* icon floats above card */
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4a9b8e, #3b3f8c);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.course-landing-title {
+  font-size: 20px;
+  color: #3b3f8c;
+  margin: 60px 0 10px 0; /* add top margin so text isn't under icon */
+}
+
+.course-landing-hours {
+  font-size: 13px;
+  color: #4a9b8e;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.course-landing-description {
+  font-size: 14px;
+  color: #666;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.start-course-btn,
+.back-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.start-course-btn {
+  background-color: #3b3f8c;
+  color: white;
+}
+
+.start-course-btn:hover {
+  background-color: #4a9b8e;
+}
+
+.back-btn {
+  background-color: white;
+  color: #3b3f8c;
+  border: 1px solid #3b3f8c;
+}
+
+.back-btn:hover {
+  background-color: #f0f2f5;
+}

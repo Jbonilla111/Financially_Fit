@@ -1,0 +1,196 @@
+
+
+.lessons-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.lessons-container h1 {
+  text-align: center;
+  color: #3b3f8c;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.module-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 30px;
+  transition: transform 0.2s;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.module-header h2 {
+  color: #3b3f8c;
+  font-size: 24px;
+  margin: 0;
+}
+
+.module-header span {
+  font-size: 14px;
+  color: #666;
+}
+
+.module-description {
+  margin-bottom: 15px;
+  color: #444;
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.flashcards-container {
+  margin-top: 20px;
+}
+
+.flashcards-container h3 {
+  color: #3b3f8c;
+  margin-bottom: 10px;
+}
+
+.flashcard {
+  display: inline-block;
+  background: #3b3f8c;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  min-width: 150px;
+  text-align: center;
+}
+
+.flashcard:hover {
+  transform: translateY(-3px);
+  background: #2a2e70;
+}
+
+.flashcard.flipped {
+  background: #f0f2f5;
+  color: #3b3f8c;
+  border: 1px solid #3b3f8c;
+}
+
+.exercise-section {
+  background: #f7f8fa;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.exercise-section p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.exercise-section input {
+  padding: 8px;
+  margin: 5px 10px 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 120px;
+}
+
+.exercise-section button {
+  padding: 8px 16px;
+  border: none;
+  background: #3b3f8c;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.exercise-section button:hover {
+  background: #2a2e70;
+}
+
+.quiz-section {
+  margin-top: 20px;
+}
+
+.quiz-section p {
+  font-weight: bold;
+}
+
+.quiz-section button {
+  margin: 5px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #3b3f8c;
+  background: white;
+  color: #3b3f8c;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quiz-section button:hover {
+  background: #3b3f8c;
+  color: white;
+}
+
+.quiz-section button.selected {
+  background: #3b3f8c;
+  color: white;
+}
+
+.module-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.module-nav button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #3b3f8c;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.module-nav button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.module-nav button:hover:not(:disabled) {
+  background: #2a2e70;
+}
+
+
+@media (max-width: 768px) {
+  .flashcard {
+    min-width: 120px;
+    padding: 10px;
+  }
+
+  .exercise-section input {
+    width: 100px;
+  }
+
+  .module-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

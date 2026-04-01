@@ -1,6 +1,6 @@
+
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import WelcomeBanner from './components/WelcomeBanner';
 import GetStartedCard from './components/GetStartedCard';
@@ -13,31 +13,46 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
+import Courses from './pages/Courses';
+import { useUser } from './context/UserContext';
+import CourseLanding from './pages/CourseLanding';
+import CourseLesson from './pages/CourseLesson'; // Imported the dynamic Lesson component
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
+  const { darkMode } = useUser();
+
   return (
-    <div className="app">
+    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={
-          <>
-            <Navbar />
-            <WelcomeBanner />
-            <div className="main-content">
-              <div className="left-column">
-                <GetStartedCard />
-                <ExternalResources />
+          localStorage.getItem('user') ? (
+            <>
+              <Navbar />
+              <WelcomeBanner />
+              <div className="main-content">
+                <div className="left-column">
+                  <GetStartedCard />
+                  <ExternalResources />
+                </div>
+                <LearningPlan />
               </div>
-              <LearningPlan />
-            </div>
-            <HomeFooterSection />
-          </>
+              <HomeFooterSection />
+            </>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         } />
         <Route path="/tools" element={<Tools />} />
         <Route path="/resources" element={<ExternalResourcesPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/settings" element={<Settings />} />
+        {/* Dynamic routing for DB-pulled courses */}
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseLanding />} />
+        <Route path="/courses/:courseId/start" element={<CourseLesson />} />
       </Routes>
     </div>
   );
