@@ -1,0 +1,105 @@
+.foundation-page {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.foundation-card {
+  background: white;
+  border-radius: 16px;
+  overflow: visible;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  padding: 60px 20px 20px 20px;
+  position: relative;
+}
+
+.foundation-icon {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4a9b8e, #3b3f8c);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.foundation-title {
+  font-size: 24px;
+  color: #3b3f8c;
+  margin-top: 60px;
+}
+
+.foundation-duration {
+  font-size: 14px;
+  color: #4a9b8e;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.foundation-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.start-course-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  background-color: #3b3f8c;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: all 0.2s;
+}
+
+.start-course-btn:hover {
+  background-color: #4a9b8e;
+}
+
+.modules-heading {
+  font-size: 18px;
+  color: #3b3f8c;
+  margin-bottom: 10px;
+}
+
+.modules-list {
+  text-align: left;
+}
+
+.module-item {
+  border-top: 1px solid #ddd;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #3b3f8c;
+  transition: background 0.2s;
+}
+
+.module-header:hover {
+  background-color: #f0f2f5;
+}
+
+.module-content {
+  padding: 0 20px 10px 20px;
+  list-style-type: disc;
+  color: #666;
+  font-size: 14px;
+}

@@ -16,6 +16,7 @@ class Content(ContentBase):
 class QuestionBase(BaseModel):
     question_text: str
     answer_text: str
+    options: Optional[str] = None
 
 class QuestionCreate(QuestionBase):
     pass

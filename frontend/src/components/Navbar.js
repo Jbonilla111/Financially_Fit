@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
-import { RiContactsLine } from 'react-icons/ri';
-import { FcCalculator } from 'react-icons/fc';
+import { FcCalculator, FcTodoList } from 'react-icons/fc';
 import ProfileSidebar from './ProfileSidebar';
 
 const allItems = [
@@ -43,20 +42,29 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-logo">FinanciallyFit</div>
         <div className="navbar-icons">
-          <span className="nav-icon" onClick={() => navigate('/')}>🏠</span>
+          <span className="nav-icon" onClick={() => navigate('/')}>
+            🏠
+            <span className="tooltip">Home</span>
+          </span>
           <span className="nav-icon" onClick={() => navigate('/tools')}>
             <FcCalculator size={24} />
+            <span className="tooltip">Tools</span>
           </span>
           <span
             className="nav-icon"
             onClick={() => { setSearchOpen(!searchOpen); setQuery(''); }}
           >
             🔍
+            <span className="tooltip">Search</span>
           </span>
-          <span className="nav-icon">
-            <RiContactsLine size={24} color="white" />
+          <span className="nav-icon" onClick={() => navigate('/courses')}>
+            <FcTodoList size={24} />
+            <span className="tooltip">Courses</span>
           </span>
-          <span className="nav-icon" onClick={() => setProfileOpen(!profileOpen)}>👤</span>
+          <span className="nav-icon" onClick={() => setProfileOpen(!profileOpen)}>
+            👤
+            <span className="tooltip">Profile</span>
+          </span>
         </div>
       </nav>
 

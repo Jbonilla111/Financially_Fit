@@ -1,0 +1,24 @@
+{
+  "courses": [
+    {
+      "title": "Investment Module",
+      "content": "Investing is the act of putting your money into assets like stocks, bonds, or real estate with the expectation that they will grow in value over time. Unlike a savings account, which offers a fixed but low return, investing carries risk. However, it also offers the potential for compounding, where your earnings generate their own earnings, leading to significant wealth building over the long term. To manage risk, investors use diversification, which means spreading money across different types of investments. By not 'putting all your eggs in one basket,' you protect yourself if one particular asset or industry performs poorly.",
+      "questions": [
+        {
+          "question": "Which involves spreading your money across various assets to reduce the impact of a single investment's poor performance?",
+          "answer": "Diversification"
+        }
+      ]
+    },
+    {
+      "title": "Market Basics",
+      "content": "The stock market is often described using two animals: the bull and the bear. A 'Bull Market' occurs when the economy is doing well, GDP is growing, and stock prices are rising. This reflects investor confidence and optimism. Conversely, a 'Bear Market' happens when the economy is receding and stock prices decline by 20% or more from recent highs. During a bear market, investors are typically more cautious or pessimistic, often leading to a 'sell-off' of assets.",
+      "questions": [
+        {
+          "question": "What term is used to describe a market where stock prices are rising and investor confidence is high?",
+          "answer": "Bull Market"
+        }
+      ]
+    }
+  ]
+}

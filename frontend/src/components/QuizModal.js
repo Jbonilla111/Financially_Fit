@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './QuizModal.css';
+import { useNavigate } from 'react-router-dom';
 
 const questions = [
   {
@@ -64,6 +65,7 @@ const getRecommendations = (answers) => {
 };
 
 function QuizModal({ onClose }) {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
@@ -145,7 +147,7 @@ function QuizModal({ onClose }) {
                 </div>
               ))}
             </div>
-            <button className="nav-btn next" onClick={onClose}>
+            <button className="nav-btn next" onClick={() => { onClose(); navigate('/courses'); }}>
               Go Explore!
             </button>
           </>

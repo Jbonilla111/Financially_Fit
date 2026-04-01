@@ -1,5 +1,23 @@
 export const API_URL = 'http://localhost:8000'; 
 
+// Fetch all available courses from the database
+export const getCourses = async () => {
+  const response = await fetch(`${API_URL}/courses/`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch courses');
+  }
+  return response.json();
+};
+
+// Fetch a single course by its ID, including its modules/titles and questions
+export const getCourseById = async (courseId) => {
+  const response = await fetch(`${API_URL}/courses/${courseId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch course ID: ${courseId}`);
+  }
+  return response.json();
+};
+
 export const loginUser = async (email, password) => {
   const response = await fetch(`${API_URL}/users/login`, {
     method: 'POST',
