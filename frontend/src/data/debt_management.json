@@ -1,0 +1,146 @@
+{
+  "module": {
+    "id": "debt_management",
+    "title": "Debt Management Techniques",
+    "description": "Learn how to understand, manage, and eliminate debt using proven strategies while building long-term financial stability and healthy money habits.",
+    "difficulty_level": "beginner",
+    "estimated_completion_time": "50 minutes",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Understand how different types of debt work and affect your finances",
+      "Learn how credit scores are impacted by debt behavior",
+      "Compare debt payoff strategies (snowball vs avalanche)",
+      "Build a realistic debt elimination plan",
+      "Avoid debt traps and predatory lending practices"
+    ]
+  },
+
+  "lessons": [
+    {
+      "lesson_id": "debt_types",
+      "title": "Understanding Different Types of Debt",
+      "content": "Debt comes in different forms. Secured debt (like car loans or mortgages) is backed by collateral, while unsecured debt (like credit cards) is not. Understanding interest rates and repayment structures helps you avoid long-term financial stress.",
+      "content_type": "text",
+      "order": 1,
+      "key_concepts": ["secured debt", "unsecured debt", "interest rates", "collateral"]
+    },
+    {
+      "lesson_id": "credit_score_basics",
+      "title": "How Debt Affects Your Credit Score",
+      "content": "Your credit score is influenced by payment history, credit utilization, and length of credit history. High balances and missed payments can significantly lower your score.",
+      "content_type": "interactive",
+      "order": 2,
+      "key_concepts": ["credit score", "credit utilization", "payment history"]
+    },
+    {
+      "lesson_id": "debt_to_income",
+      "title": "Debt-to-Income Ratio (DTI)",
+      "content": "DTI measures how much of your income goes toward debt payments. Lenders use it to evaluate your financial health. A lower DTI means better financial stability.",
+      "content_type": "calculator",
+      "order": 3,
+      "key_concepts": ["DTI ratio", "income allocation", "financial health"]
+    },
+    {
+      "lesson_id": "payoff_strategies",
+      "title": "Debt Payoff Strategies That Work",
+      "content": "The snowball method focuses on paying smallest debts first for motivation. The avalanche method focuses on highest interest debts first to save money. Choosing the right method depends on your financial and psychological needs.",
+      "content_type": "interactive",
+      "order": 4,
+      "key_concepts": ["debt snowball", "debt avalanche", "minimum payments"]
+    },
+    {
+      "lesson_id": "debt_consolidation",
+      "title": "Debt Consolidation and Refinancing",
+      "content": "Debt consolidation combines multiple debts into one payment, often with a lower interest rate. Refinancing replaces an existing loan with a new one under better terms.",
+      "content_type": "text",
+      "order": 5,
+      "key_concepts": ["debt consolidation", "refinancing", "interest reduction"]
+    },
+    {
+      "lesson_id": "debt_prevention",
+      "title": "Avoiding Future Debt",
+      "content": "Building an emergency fund, budgeting properly, and controlling spending habits helps prevent falling back into debt after paying it off.",
+      "content_type": "text",
+      "order": 6,
+      "key_concepts": ["emergency fund", "budgeting", "financial discipline"]
+    }
+  ],
+
+  "calculators": [
+    {
+      "calculator_id": "debt_payoff",
+      "title": "Debt Payoff Calculator",
+      "inputs": [
+        {
+          "name": "debts",
+          "type": "array",
+          "label": "Debt Accounts",
+          "fields": [
+            {"name": "balance", "type": "currency", "label": "Balance"},
+            {"name": "interest_rate", "type": "percentage", "label": "Interest Rate"},
+            {"name": "minimum_payment", "type": "currency", "label": "Minimum Payment"}
+          ]
+        },
+        {
+          "name": "extra_payment",
+          "type": "currency",
+          "label": "Extra Monthly Payment"
+        },
+        {
+          "name": "strategy",
+          "type": "select",
+          "label": "Payoff Strategy",
+          "options": ["snowball", "avalanche"]
+        }
+      ],
+      "outputs": [
+        {"name": "total_interest_paid", "type": "currency", "label": "Total Interest Paid"},
+        {"name": "payoff_time_months", "type": "number", "label": "Time to Pay Off (Months)"},
+        {"name": "interest_saved", "type": "currency", "label": "Interest Saved vs Minimum Payments"},
+        {"name": "debt_free_date", "type": "date", "label": "Estimated Debt-Free Date"}
+      ]
+    }
+  ],
+
+  "quizzes": [
+    {
+      "quiz_id": "debt_strategies",
+      "title": "Debt Management Quiz",
+      "questions": [
+        {
+          "question": "Which factor has the biggest impact on your credit score?",
+          "options": [
+            "Number of bank accounts",
+            "Payment history",
+            "Age of your device",
+            "Shopping frequency"
+          ],
+          "correct_answer": 1,
+          "explanation": "Payment history is the most important factor in your credit score."
+        },
+        {
+          "question": "What is the main advantage of the avalanche method?",
+          "options": [
+            "Faster emotional motivation",
+            "Lower total interest paid",
+            "Fewer monthly payments",
+            "No budgeting required"
+          ],
+          "correct_answer": 1,
+          "explanation": "The avalanche method reduces total interest by targeting high-interest debt first."
+        },
+        {
+          "question": "What does a low debt-to-income ratio indicate?",
+          "options": [
+            "High debt risk",
+            "Strong financial health",
+            "No credit history",
+            "High spending habits"
+          ],
+          "correct_answer": 1,
+          "explanation": "A low DTI means you are not overburdened by debt relative to income."
+        }
+      ]
+    }
+  ]
+}

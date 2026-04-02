@@ -1,0 +1,148 @@
+{
+  "module": {
+    "id": "emergency_fund_building",
+    "title": "Emergency Fund Building",
+    "description": "Learn how to build a financial safety net to protect yourself from unexpected expenses and financial emergencies.",
+    "difficulty_level": "beginner",
+    "estimated_completion_time": "40 minutes",
+    "prerequisites": ["basic_budgeting"],
+    "learning_objectives": [
+      "Understand what an emergency fund is and why it matters",
+      "Calculate how much you should save for emergencies",
+      "Build a step-by-step savings plan",
+      "Learn where to safely store emergency savings",
+      "Avoid common mistakes when building an emergency fund"
+    ]
+  },
+
+  "lessons": [
+    {
+      "lesson_id": "what_is_emergency_fund",
+      "title": "What Is an Emergency Fund?",
+      "content": "An emergency fund is money set aside to cover unexpected expenses such as medical bills, car repairs, or job loss. It prevents you from relying on credit cards or loans during financial emergencies.",
+      "content_type": "text",
+      "order": 1,
+      "key_concepts": ["financial safety net", "unexpected expenses", "financial stability"]
+    },
+    {
+      "lesson_id": "how_much_to_save",
+      "title": "How Much Should You Save?",
+      "content": "Most experts recommend saving 3 to 6 months of essential living expenses. Your target depends on job stability, income consistency, and personal risk level.",
+      "content_type": "calculator",
+      "order": 2,
+      "key_concepts": ["3-6 months expenses", "income stability", "risk level"]
+    },
+    {
+      "lesson_id": "building_plan",
+      "title": "How to Build Your Emergency Fund",
+      "content": "Start small and stay consistent. Even saving $20–$50 per week can build a strong emergency fund over time. Automating savings helps ensure consistency.",
+      "content_type": "interactive",
+      "order": 3,
+      "key_concepts": ["automation", "consistency", "small contributions"]
+    },
+    {
+      "lesson_id": "where_to_store",
+      "title": "Where to Keep Your Emergency Fund",
+      "content": "Your emergency fund should be stored in a safe and accessible place like a high-yield savings account. It should NOT be invested in risky assets like stocks.",
+      "content_type": "text",
+      "order": 4,
+      "key_concepts": ["liquidity", "high-yield savings account", "accessibility"]
+    },
+    {
+      "lesson_id": "common_mistakes",
+      "title": "Common Mistakes to Avoid",
+      "content": "Common mistakes include investing emergency funds in the stock market, not having a clear target, and using the fund for non-emergencies.",
+      "content_type": "text",
+      "order": 5,
+      "key_concepts": ["misuse of funds", "lack of planning", "risk exposure"]
+    }
+  ],
+
+  "calculators": [
+    {
+      "calculator_id": "emergency_fund_calculator",
+      "title": "Emergency Fund Calculator",
+      "inputs": [
+        {
+          "name": "monthly_expenses",
+          "type": "currency",
+          "label": "Monthly Essential Expenses"
+        },
+        {
+          "name": "months_coverage",
+          "type": "number",
+          "label": "Months of Coverage (3–6 recommended)"
+        },
+        {
+          "name": "current_savings",
+          "type": "currency",
+          "label": "Current Savings"
+        },
+        {
+          "name": "monthly_savings",
+          "type": "currency",
+          "label": "Monthly Savings Contribution"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "target_fund",
+          "type": "currency",
+          "label": "Emergency Fund Goal"
+        },
+        {
+          "name": "time_to_goal",
+          "type": "months",
+          "label": "Time to Reach Goal"
+        },
+        {
+          "name": "gap",
+          "type": "currency",
+          "label": "Remaining Amount Needed"
+        }
+      ]
+    }
+  ],
+
+  "quizzes": [
+    {
+      "quiz_id": "emergency_fund_basics",
+      "title": "Emergency Fund Quiz",
+      "questions": [
+        {
+          "question": "What is the main purpose of an emergency fund?",
+          "options": [
+            "To invest in stocks",
+            "To cover unexpected expenses",
+            "To buy luxury items",
+            "To pay monthly bills only"
+          ],
+          "correct_answer": 1,
+          "explanation": "An emergency fund is meant to cover unexpected financial emergencies."
+        },
+        {
+          "question": "Where should an emergency fund typically be stored?",
+          "options": [
+            "Stock market",
+            "Crypto wallet",
+            "High-yield savings account",
+            "Real estate"
+          ],
+          "correct_answer": 2,
+          "explanation": "A high-yield savings account keeps money safe and easily accessible."
+        },
+        {
+          "question": "How many months of expenses is commonly recommended?",
+          "options": [
+            "1 month",
+            "2 months",
+            "3–6 months",
+            "12 months minimum only"
+          ],
+          "correct_answer": 2,
+          "explanation": "Experts typically recommend 3–6 months of essential expenses."
+        }
+      ]
+    }
+  ]
+}

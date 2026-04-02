@@ -1,0 +1,161 @@
+{
+  "module": {
+    "id": "investment_basics",
+    "title": "Investment Fundamentals",
+    "description": "Learn how investing works, how to manage risk, and how to build a diversified portfolio for long-term wealth creation.",
+    "difficulty_level": "intermediate",
+    "estimated_completion_time": "65 minutes",
+    "prerequisites": ["retirement_planning"],
+    "learning_objectives": [
+      "Understand major investment types and how they work",
+      "Learn how risk and return are connected",
+      "Build a diversified portfolio based on goals and timeline",
+      "Apply long-term investing strategies like dollar-cost averaging",
+      "Avoid common beginner investing mistakes"
+    ]
+  },
+
+  "lessons": [
+    {
+      "lesson_id": "investment_vehicles",
+      "title": "Understanding Investment Options",
+      "content": "Investing involves putting money into assets like stocks, bonds, ETFs, and mutual funds. Stocks offer higher potential returns but higher risk, while bonds are more stable but lower return. ETFs and mutual funds allow diversification in a single investment.",
+      "content_type": "text",
+      "order": 1,
+      "key_concepts": ["stocks", "bonds", "ETFs", "mutual funds", "asset classes"]
+    },
+    {
+      "lesson_id": "risk_return_principle",
+      "title": "Risk vs Return Relationship",
+      "content": "Higher returns usually come with higher risk. Your risk tolerance depends on your age, income stability, and financial goals. Younger investors can typically take more risk because they have more time to recover from losses.",
+      "content_type": "interactive",
+      "order": 2,
+      "key_concepts": ["risk tolerance", "volatility", "time horizon"]
+    },
+    {
+      "lesson_id": "inflation_effects",
+      "title": "Inflation and Buying Power",
+      "content": "Inflation reduces the value of money over time. This means cash loses purchasing power if it is not invested. Investing helps your money grow faster than inflation.",
+      "content_type": "text",
+      "order": 3,
+      "key_concepts": ["inflation", "real return", "purchasing power"]
+    },
+    {
+      "lesson_id": "portfolio_building",
+      "title": "Building a Diversified Portfolio",
+      "content": "A good portfolio spreads investments across different asset classes to reduce risk. Diversification helps protect your money from market volatility.",
+      "content_type": "interactive",
+      "order": 4,
+      "key_concepts": ["diversification", "asset allocation", "portfolio balance"]
+    },
+    {
+      "lesson_id": "dca_rebalancing",
+      "title": "Dollar-Cost Averaging & Rebalancing",
+      "content": "Dollar-cost averaging means investing a fixed amount regularly, reducing the impact of market volatility. Rebalancing keeps your portfolio aligned with your goals.",
+      "content_type": "interactive",
+      "order": 5,
+      "key_concepts": ["dollar-cost averaging", "rebalancing", "discipline investing"]
+    },
+    {
+      "lesson_id": "behavioral_mistakes",
+      "title": "Common Investing Mistakes",
+      "content": "Many investors lose money by panic selling, chasing trends, or trying to time the market. Successful investing requires patience and consistency.",
+      "content_type": "text",
+      "order": 6,
+      "key_concepts": ["emotional investing", "market timing", "discipline"]
+    }
+  ],
+
+  "calculators": [
+    {
+      "calculator_id": "investment_growth",
+      "title": "Investment Growth Simulator",
+      "inputs": [
+        {
+          "name": "initial_investment",
+          "type": "currency",
+          "label": "Starting Investment"
+        },
+        {
+          "name": "monthly_contribution",
+          "type": "currency",
+          "label": "Monthly Investment"
+        },
+        {
+          "name": "investment_years",
+          "type": "years",
+          "label": "Time Horizon (Years)"
+        },
+        {
+          "name": "expected_return",
+          "type": "percentage",
+          "label": "Expected Annual Return (%)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "final_value",
+          "type": "currency",
+          "label": "Future Portfolio Value"
+        },
+        {
+          "name": "total_invested",
+          "type": "currency",
+          "label": "Total Money Invested"
+        },
+        {
+          "name": "investment_growth",
+          "type": "currency",
+          "label": "Total Growth (Profit)"
+        },
+        {
+          "name": "inflation_adjusted_value",
+          "type": "currency",
+          "label": "Real Value (Adjusted for Inflation)"
+        }
+      ]
+    }
+  ],
+
+  "quizzes": [
+    {
+      "quiz_id": "investment_principles",
+      "title": "Investment Fundamentals Quiz",
+      "questions": [
+        {
+          "question": "Why is diversification important in investing?",
+          "options": [
+            "It guarantees profits",
+            "It reduces overall risk",
+            "It eliminates taxes",
+            "It increases trading speed"
+          ],
+          "correct_answer": 1,
+          "explanation": "Diversification reduces risk by spreading investments across different assets."
+        },
+        {
+          "question": "What is the main benefit of dollar-cost averaging?",
+          "options": [
+            "Timing the market perfectly",
+            "Buying at the lowest price always",
+            "Reducing impact of market volatility",
+            "Avoiding all losses"
+          ],
+          "correct_answer": 2,
+          "explanation": "Dollar-cost averaging smooths out market volatility by investing consistently over time."
+        },
+        {
+          "question": "What happens to purchasing power when inflation increases?",
+          "options": [
+            "It increases",
+            "It stays the same",
+            "It decreases",
+            "It becomes unlimited"
+          ],
+          "correct_answer": 2,
+          "explanation": "Inflation reduces purchasing power over time."
+        }
+      ]
+    }
+  ]
+}
