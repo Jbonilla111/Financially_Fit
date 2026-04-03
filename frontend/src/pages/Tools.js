@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Tools.css';
 import Navbar from '../components/Navbar';
+import { saveCalculation } from '../api';
 
 function Tools() {
   const [activeTab, setActiveTab] = useState('Loan');
+  const [userId, setUserId] = useState(null);
+
+useEffect(() => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) setUserId(user.id || user.user_id);
+}, []);
 
   // Loan state
   const [loanAmount, setLoanAmount] = useState(200000);
@@ -50,11 +57,20 @@ function Tools() {
     const monthly = (loanAmount * r) / (1 - Math.pow(1 + r, -n));
     const total = monthly * n;
     const totalInterest = total - loanAmount;
-    setLoanResults({
+    const results = {
       monthly: monthly.toFixed(2),
       total: total.toFixed(2),
       totalInterest: totalInterest.toFixed(2),
-    });
+    };
+    setLoanResults(results);
+
+    if (userId) {
+      saveCalculation(userId, 'loan', {
+        loan_amount: Number(loanAmount),
+        annual_interest_rate: Number(interestRate),
+        loan_term_years: Number(loanTerm)
+      });
+    }
   };
 
   const calculateInvestment = () => {
@@ -80,11 +96,21 @@ function Tools() {
       monthlyContribution * ((Math.pow(1 + r, n) - 1) / r);
     const totalContributions = initialInvestment + monthlyContribution * n;
     const totalEarnings = futureValue - totalContributions;
-    setInvestmentResults({
+    const results = {
       futureValue: futureValue.toFixed(2),
       totalContributions: totalContributions.toFixed(2),
       totalEarnings: totalEarnings.toFixed(2),
-    });
+    };
+    setInvestmentResults(results);
+
+    if (userId) {
+      saveCalculation(userId, 'investment', {
+        initial_amount: Number(initialInvestment),
+        annual_interest_rate: Number(annualReturn),
+        years: Number(investmentPeriod),
+        monthly_contribution: Number(monthlyContribution)
+      });
+    }
   };
 
   const calculateSavings = () => {
@@ -118,12 +144,22 @@ function Tools() {
       months++;
     }
     const interestEarned = balance - totalDeposited;
-    setSavingsResults({
+    const results = {
       months: months,
       years: (months / 12).toFixed(1),
       totalDeposited: totalDeposited.toFixed(2),
       interestEarned: interestEarned.toFixed(2),
-    });
+    };
+    setSavingsResults(results);
+
+    if (userId) {
+      saveCalculation(userId, 'savings', {
+        savings_goal: Number(savingsGoal),
+        current_savings: Number(currentSavings),
+        monthly_contribution: Number(monthlyDeposit),
+        annual_interest_rate: Number(savingsRate)
+      });
+    }
   };
 
   const calculateInsurance = () => {
@@ -140,11 +176,20 @@ function Tools() {
     const ageFactor = 1 + (age - 25) * 0.03;
     const base = coverageAmount * baseRates[insuranceType];
     const monthly = base * ageFactor * healthMultipliers[healthStatus];
-    setInsuranceResults({
+    const results = {
       monthlyPremium: monthly.toFixed(2),
       annualPremium: (monthly * 12).toFixed(2),
       coverageAmount: Number(coverageAmount).toLocaleString(),
-    });
+    };
+    setInsuranceResults(results);
+
+    if (userId) {
+      saveCalculation(userId, 'insurance', {
+        age: Number(age),
+        coverage_amount: Number(coverageAmount),
+        term_years: 1
+      });
+    }
   };
 
   return (
