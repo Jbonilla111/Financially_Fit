@@ -1,0 +1,140 @@
+{
+	"module": {
+		"id": "retirement_planning",
+		"title": "Retirement Planning",
+		"description": "Prepare for a secure retirement by setting realistic goals, choosing the right accounts, and building a long-term savings strategy.",
+		"difficulty_level": "beginner",
+		"estimated_completion_time": "55 minutes",
+		"prerequisites": ["investment_basics"],
+		"learning_objectives": [
+			"Understand how much retirement income you may need",
+			"Compare common retirement account types",
+			"Use contribution strategy and compounding to grow savings",
+			"Plan withdrawal strategy and risk management for retirement",
+			"Adjust your plan as your life and income change"
+		]
+	},
+	"lessons": [
+		{
+			"lesson_id": "retirement_basics",
+			"title": "Retirement Basics",
+			"content": "The earlier you start, the less you typically need to save each month because compounding has more time to work. Planning starts with estimating annual expenses in retirement and inflation-adjusting them.",
+			"content_type": "text",
+			"order": 1,
+			"key_concepts": ["compounding", "time horizon", "retirement expenses", "inflation"]
+		},
+		{
+			"lesson_id": "retirement_accounts",
+			"title": "Retirement Account Options",
+			"content": "Common account types include employer-sponsored plans and individual retirement accounts. Tax treatment differs by account type, so your strategy should balance current tax impact and future flexibility.",
+			"content_type": "interactive",
+			"order": 2,
+			"key_concepts": ["tax-advantaged accounts", "employer match", "IRA", "contribution limits"]
+		},
+		{
+			"lesson_id": "retirement_savings_rate",
+			"title": "Savings Rate and Contribution Strategy",
+			"content": "Consistent monthly contributions and periodic increases are often more important than trying to time the market. Automating contributions helps maintain discipline through market cycles.",
+			"content_type": "calculator",
+			"order": 3,
+			"key_concepts": ["savings rate", "automation", "dollar-cost averaging", "discipline"]
+		},
+		{
+			"lesson_id": "portfolio_risk_over_time",
+			"title": "Portfolio Risk Over Time",
+			"content": "Portfolio risk should generally decrease as retirement approaches. A diversified mix of assets can reduce the impact of downturns while still supporting long-term growth.",
+			"content_type": "text",
+			"order": 4,
+			"key_concepts": ["asset allocation", "diversification", "risk tolerance", "glide path"]
+		},
+		{
+			"lesson_id": "retirement_withdrawals",
+			"title": "Withdrawal Planning",
+			"content": "Retirement planning includes how you will withdraw funds. Sustainable withdrawal rates, tax-efficient sequencing, and contingency planning can help your savings last longer.",
+			"content_type": "interactive",
+			"order": 5,
+			"key_concepts": ["withdrawal rate", "tax efficiency", "sequence risk", "longevity risk"]
+		}
+	],
+	"calculators": [
+		{
+			"calculator_id": "retirement_projection",
+			"title": "Retirement Projection Calculator",
+			"inputs": [
+				{
+					"name": "current_age",
+					"type": "number",
+					"label": "Current Age"
+				},
+				{
+					"name": "retirement_age",
+					"type": "number",
+					"label": "Planned Retirement Age"
+				},
+				{
+					"name": "current_savings",
+					"type": "currency",
+					"label": "Current Retirement Savings"
+				},
+				{
+					"name": "monthly_contribution",
+					"type": "currency",
+					"label": "Monthly Contribution"
+				},
+				{
+					"name": "expected_return",
+					"type": "percentage",
+					"label": "Expected Annual Return"
+				},
+				{
+					"name": "target_annual_income",
+					"type": "currency",
+					"label": "Target Annual Retirement Income"
+				}
+			],
+			"outputs": [
+				{
+					"name": "projected_balance",
+					"type": "currency",
+					"label": "Projected Balance at Retirement"
+				},
+				{
+					"name": "income_gap",
+					"type": "currency",
+					"label": "Estimated Income Gap"
+				},
+				{
+					"name": "recommended_monthly_contribution",
+					"type": "currency",
+					"label": "Recommended Monthly Contribution"
+				}
+			]
+		}
+	],
+	"quizzes": [
+		{
+			"quiz_id": "retirement_planning_basics",
+			"title": "Retirement Planning Quiz",
+			"questions": [
+				{
+					"question": "When is generally the best time to start saving for retirement?",
+					"options": ["As early as possible", "Only after age 50", "After paying off all debt", "Right before retirement"],
+					"correct_answer": 0,
+					"explanation": "Starting early gives compounding more time to work."
+				},
+				{
+					"question": "Why does diversification matter in retirement portfolios?",
+					"options": ["It guarantees profits", "It reduces risk from any single asset", "It removes all taxes", "It avoids market volatility entirely"],
+					"correct_answer": 1,
+					"explanation": "Diversification spreads risk across different asset classes."
+				},
+				{
+					"question": "What is a key goal of withdrawal planning?",
+					"options": ["Maximize taxes paid", "Spend as fast as possible", "Help savings last through retirement", "Avoid all investment accounts"],
+					"correct_answer": 2,
+					"explanation": "Withdrawal planning aims to sustain income over a potentially long retirement."
+				}
+			]
+		}
+	]
+}

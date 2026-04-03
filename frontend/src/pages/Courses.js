@@ -3,7 +3,7 @@ import './Courses.css';
 import CourseCard from '../components/CourseCard';
 // Keep icons for mapping dynamically
 import { FaBook, FaPiggyBank, FaCreditCard, FaUmbrella, FaChartLine } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import { getCourses } from '../api'; // Import new API function
 
 // A simple dictionary to fetch a random or associated icon based on course keyword
@@ -17,6 +17,7 @@ const getIconForCourse = (courseName) => {
 };
 
 function Courses() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]); // State for DB courses
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,6 +44,22 @@ function Courses() {
   return (
     <div className="courses-page">
       <div className="courses-container">
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          style={{
+            marginBottom: '1rem',
+            padding: '0.75rem 1rem',
+            border: 'none',
+            borderRadius: '999px',
+            cursor: 'pointer',
+            background: '#3b3f8c',
+            color: 'white',
+            fontWeight: 600,
+          }}
+        >
+          ← Back to Home
+        </button>
         <h1 className="courses-title">Courses</h1>
         <p className="courses-subtitle">Choose a course and start your financial literacy journey today!</p>
 

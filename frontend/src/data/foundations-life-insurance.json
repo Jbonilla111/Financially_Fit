@@ -1,261 +1,211 @@
 {
-  "title": "Foundations of Life Insurance",
-  "duration": "1 Hour",
-  "level": "Beginner",
-  "description": "A beginner-friendly course that teaches how life insurance works, how to choose the right policy, and how to protect your financial future.",
-  "modules": [
+  "module": {
+    "id": "foundations_life_insurance",
+    "title": "Foundations of Life Insurance",
+    "description": "A beginner-friendly course that teaches how life insurance works, how to choose the right policy, and how to protect your financial future.",
+    "difficulty_level": "beginner",
+    "estimated_completion_time": "60 minutes",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Understand what life insurance is and who should have it",
+      "Compare term and permanent life insurance",
+      "Evaluate common riders and policy features",
+      "Estimate an appropriate coverage amount",
+      "Apply practical strategies for buying and managing a policy"
+    ]
+  },
+  "lessons": [
     {
+      "lesson_id": "intro_life_insurance",
       "title": "Introduction to Life Insurance",
-      "duration": "5 min",
-      "objective": "Understand the purpose of life insurance and why it is important.",
-      "lesson": [
-        "Life insurance is a contract between you and an insurance company that provides financial support to your loved ones after your death.",
-        "Its main purpose is to replace lost income and cover financial responsibilities.",
-        "Without life insurance, families may struggle to pay for daily expenses, debts, or long-term goals.",
-        "Life insurance is not just for older people — it is most useful when others depend on you financially."
+      "content": "Life insurance is a contract that can provide financial support to your loved ones after your death. Its main purpose is to replace lost income and cover responsibilities like housing, education, and debt. It is most important when others depend on your income.",
+      "content_type": "text",
+      "order": 1,
+      "key_concepts": ["beneficiary", "income replacement", "financial protection"]
+    },
+    {
+      "lesson_id": "types_of_life_insurance",
+      "title": "Types of Life Insurance",
+      "content": "Term life insurance covers a set period and is usually more affordable. Permanent life insurance lasts for life and may include a cash value component. The best option depends on your budget, timeline, and long-term goals.",
+      "content_type": "text",
+      "order": 2,
+      "key_concepts": ["term life", "permanent life", "cash value", "coverage period"]
+    },
+    {
+      "lesson_id": "life_insurance_riders",
+      "title": "Life Insurance Riders",
+      "content": "Riders are optional add-ons that customize your policy. Examples include waiver of premium, accidental death benefit, guaranteed insurability, and long-term care riders. Riders can improve protection but also increase cost.",
+      "content_type": "interactive",
+      "order": 3,
+      "key_concepts": ["riders", "waiver of premium", "guaranteed insurability", "cost-benefit"]
+    },
+    {
+      "lesson_id": "calculate_coverage_needs",
+      "title": "Calculating Life Insurance Needs",
+      "content": "Estimate your needed coverage by adding debts, future expenses, and income replacement needs, then subtracting current assets and existing insurance. This helps you avoid both underinsuring and overinsuring.",
+      "content_type": "calculator",
+      "order": 4,
+      "key_concepts": ["coverage gap", "income replacement", "financial obligations", "assets"]
+    },
+    {
+      "lesson_id": "policy_components",
+      "title": "Policy Components",
+      "content": "Important policy parts include premium (what you pay), death benefit (what beneficiaries receive), and cash value (available in some permanent policies). Understanding these terms helps you compare plans accurately.",
+      "content_type": "text",
+      "order": 5,
+      "key_concepts": ["premium", "death benefit", "cash value", "policy terms"]
+    },
+    {
+      "lesson_id": "buy_manage_policy",
+      "title": "Buying and Managing Life Insurance",
+      "content": "Choose insurers with strong reputation and financial stability. Review policy details before purchase, update beneficiaries after life events, and reassess coverage regularly as your financial situation changes.",
+      "content_type": "text",
+      "order": 6,
+      "key_concepts": ["insurer strength", "beneficiary updates", "policy review", "life events"]
+    },
+    {
+      "lesson_id": "life_insurance_strategies",
+      "title": "Life Insurance Strategies",
+      "content": "Laddering uses multiple term policies with different durations to match changing needs over time. Permanent insurance can support long-term planning and wealth transfer. Strategy should balance cost and protection.",
+      "content_type": "interactive",
+      "order": 7,
+      "key_concepts": ["laddering", "term lengths", "wealth transfer", "long-term planning"]
+    },
+    {
+      "lesson_id": "case_studies_practice",
+      "title": "Case Studies and Practice",
+      "content": "Real-world scenarios help apply concepts based on income, family needs, health risk, and long-term goals. Practice builds confidence and better policy decisions.",
+      "content_type": "interactive",
+      "order": 8,
+      "key_concepts": ["scenario planning", "decision making", "family protection", "application"]
+    }
+  ],
+  "calculators": [
+    {
+      "calculator_id": "life_insurance_needs",
+      "title": "Life Insurance Needs Calculator",
+      "inputs": [
+        {
+          "name": "annual_income",
+          "type": "currency",
+          "label": "Annual Household Income to Replace"
+        },
+        {
+          "name": "years_of_support",
+          "type": "number",
+          "label": "Years of Income Support"
+        },
+        {
+          "name": "outstanding_debt",
+          "type": "currency",
+          "label": "Outstanding Debt"
+        },
+        {
+          "name": "future_expenses",
+          "type": "currency",
+          "label": "Future Education and Family Expenses"
+        },
+        {
+          "name": "existing_assets",
+          "type": "currency",
+          "label": "Savings and Investments Available"
+        },
+        {
+          "name": "existing_coverage",
+          "type": "currency",
+          "label": "Existing Life Insurance Coverage"
+        }
       ],
-      "examples": [
-        "A parent uses life insurance to ensure their children’s education is covered.",
-        "A couple uses it to make sure the mortgage can still be paid."
-      ],
-      "key_takeaways": [
-        "Life insurance protects your loved ones financially",
-        "It replaces income and covers major expenses",
-        "It is important if others depend on you"
-      ],
-      "quiz": [
+      "outputs": [
+        {
+          "name": "recommended_coverage",
+          "type": "currency",
+          "label": "Recommended Coverage"
+        },
+        {
+          "name": "coverage_gap",
+          "type": "currency",
+          "label": "Coverage Gap"
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "quiz_id": "life_insurance_basics",
+      "title": "Life Insurance Basics Quiz",
+      "questions": [
         {
           "question": "Who benefits from life insurance?",
           "options": ["The insurance company", "The beneficiary", "The government", "The bank"],
-          "answer": "The beneficiary"
-        }
-      ]
-    },
-    {
-      "title": "Types of Life Insurance",
-      "duration": "8 min",
-      "objective": "Learn the different types of life insurance and when to use each.",
-      "lesson": [
-        "There are two main categories: term life and permanent life insurance.",
-        "Term life insurance provides coverage for a set period and is usually more affordable.",
-        "Permanent life insurance lasts your entire life and includes a savings component called cash value.",
-        "Different types serve different goals — short-term protection vs long-term financial planning."
-      ],
-      "examples": [
-        "A recent graduate may choose term insurance because it is cheaper.",
-        "Someone planning inheritance may choose whole life insurance."
-      ],
-      "key_takeaways": [
-        "Term life = temporary and affordable",
-        "Permanent life = lifelong and builds value",
-        "Choose based on your financial goals"
-      ],
-      "quiz": [
+          "correct_answer": 1,
+          "explanation": "The beneficiary receives the death benefit payout."
+        },
         {
           "question": "Which type of insurance is typically cheaper?",
           "options": ["Whole Life", "Universal Life", "Term Life", "Variable Life"],
-          "answer": "Term Life"
+          "correct_answer": 2,
+          "explanation": "Term life is usually the most affordable option for equivalent coverage."
         }
       ]
     },
     {
-      "title": "Life Insurance Riders",
-      "duration": "8 min",
-      "objective": "Understand what riders are, how they work, and how to choose the right ones based on real-life situations.",
-      "lesson": [
-        "A rider is an optional add-on to your life insurance policy that provides extra protection or benefits.",
-        "Think of riders like customizing your phone with extra features — you only add what you actually need.",
-        "While a basic policy covers death, riders can protect you in situations like disability, illness, or unexpected events.",
-        "One common rider is the Waiver of Premium Rider. If you become disabled and cannot work, this rider allows you to keep your policy without paying premiums.",
-        "Another is the Accidental Death Benefit Rider, which increases the payout if death occurs due to an accident.",
-        "The Guaranteed Insurability Rider allows you to increase your coverage later without taking another medical exam. This is useful if your income grows or you start a family.",
-        "A Long-Term Care Rider lets you use part of your life insurance benefit while you are still alive to pay for healthcare or assisted living costs.",
-        "Not all riders are necessary. Choosing the right ones depends on your lifestyle, health risks, and financial goals.",
-        "Adding too many riders can make your policy expensive, so it’s important to balance cost and benefit."
-      ],
-      "examples": [
-        "If you work a physically demanding job, a Waiver of Premium Rider can protect you if you become injured.",
-        "If you are young and healthy now, a Guaranteed Insurability Rider lets you increase coverage later without worrying about future health issues.",
-        "If you are concerned about medical costs later in life, a Long-Term Care Rider can help cover those expenses."
-      ],
-      "key_takeaways": [
-        "Riders customize your life insurance policy",
-        "They provide protection beyond basic death coverage",
-        "Choose riders based on your personal risks and future plans",
-        "More riders = higher cost, so choose wisely"
-      ],
-      "quiz": [
+      "quiz_id": "life_insurance_riders",
+      "title": "Life Insurance Riders Quiz",
+      "questions": [
         {
           "question": "What is the main purpose of a life insurance rider?",
-          "options": [
-            "To replace the main policy",
-            "To add extra benefits or protection",
-            "To cancel coverage",
-            "To reduce the payout"
-          ],
-          "answer": "To add extra benefits or protection"
+          "options": ["To replace the main policy", "To add extra benefits or protection", "To cancel coverage", "To reduce the payout"],
+          "correct_answer": 1,
+          "explanation": "Riders customize a policy with additional protection features."
         },
         {
           "question": "Which rider helps if you become unable to work?",
-          "options": [
-            "Accidental Death Rider",
-            "Waiver of Premium Rider",
-            "Guaranteed Insurability Rider",
-            "Term Rider"
-          ],
-          "answer": "Waiver of Premium Rider"
+          "options": ["Accidental Death Rider", "Waiver of Premium Rider", "Guaranteed Insurability Rider", "Term Rider"],
+          "correct_answer": 1,
+          "explanation": "Waiver of premium can keep the policy active when disability prevents payment."
         },
         {
           "question": "Why might someone choose a Guaranteed Insurability Rider?",
-          "options": [
-            "To lower premiums immediately",
-            "To avoid paying taxes",
-            "To increase coverage later without a medical exam",
-            "To cancel the policy anytime"
-          ],
-          "answer": "To increase coverage later without a medical exam"
+          "options": ["To lower premiums immediately", "To avoid paying taxes", "To increase coverage later without a medical exam", "To cancel the policy anytime"],
+          "correct_answer": 2,
+          "explanation": "It allows future coverage increases without another medical exam."
         }
       ]
     },
     {
-      "title": "Calculating Life Insurance Needs",
-      "duration": "10 min",
-      "objective": "Learn how to calculate how much coverage you need.",
-      "lesson": [
-        "Start by listing your financial obligations such as debts, rent, and education costs.",
-        "Estimate how much income your family would need if you were no longer there.",
-        "Subtract any savings or existing insurance coverage.",
-        "The remaining amount is your coverage gap.",
-        "Choosing the right amount ensures your family is protected without overpaying."
-      ],
-      "examples": [
-        "If your family needs $600,000 and you already have $200,000, you need $400,000 coverage."
-      ],
-      "key_takeaways": [
-        "Add expenses and subtract assets",
-        "Focus on income replacement",
-        "Avoid underinsuring or overinsuring"
-      ],
-      "quiz": [
+      "quiz_id": "policy_and_strategy",
+      "title": "Policy and Strategy Quiz",
+      "questions": [
         {
-          "question": "What should you subtract when calculating needs?",
+          "question": "What should you subtract when calculating insurance needs?",
           "options": ["Debts", "Assets", "Income", "Premiums"],
-          "answer": "Assets"
-        }
-      ]
-    },
-    {
-      "title": "Policy Components",
-      "duration": "8 min",
-      "objective": "Understand the key parts of a life insurance policy.",
-      "lesson": [
-        "The premium is the amount you pay regularly for coverage.",
-        "The death benefit is the amount paid to your beneficiaries.",
-        "Cash value is a savings feature found in some policies.",
-        "Understanding these components helps you choose the right policy."
-      ],
-      "examples": [
-        "A $300,000 policy means your beneficiaries receive $300,000."
-      ],
-      "key_takeaways": [
-        "Premium = cost",
-        "Death benefit = payout",
-        "Cash value = savings feature"
-      ],
-      "quiz": [
+          "correct_answer": 1,
+          "explanation": "You subtract assets and existing coverage to estimate the remaining gap."
+        },
         {
-          "question": "What is the premium?",
+          "question": "What is the premium in a life insurance policy?",
           "options": ["The payout", "The cost of the policy", "The tax", "The benefit"],
-          "answer": "The cost of the policy"
-        }
-      ]
-    },
-    {
-      "title": "Buying and Managing Life Insurance",
-      "duration": "8 min",
-      "objective": "Learn how to choose and maintain your policy.",
-      "lesson": [
-        "Compare insurance companies based on reputation and financial strength.",
-        "Always read and understand your policy before purchasing.",
-        "Update your beneficiaries when life changes occur.",
-        "Review your policy regularly to make sure it still meets your needs."
-      ],
-      "examples": [
-        "After having a child, you may increase your coverage.",
-        "After paying off debt, you may reduce coverage."
-      ],
-      "key_takeaways": [
-        "Choose a reliable insurer",
-        "Review your policy regularly",
-        "Update it as your life changes"
-      ],
-      "quiz": [
+          "correct_answer": 1,
+          "explanation": "Premium is the amount you pay to keep coverage active."
+        },
         {
           "question": "When should you review your policy?",
           "options": ["Never", "Only once", "Regularly", "After 20 years"],
-          "answer": "Regularly"
-        }
-      ]
-    },
-    {
-      "title": "Life Insurance Strategies",
-      "duration": "7 min",
-      "objective": "Understand how to use life insurance strategically.",
-      "lesson": [
-        "Laddering involves buying multiple term policies with different lengths.",
-        "This helps match coverage to changing financial needs.",
-        "Permanent insurance can also be used for long-term planning and wealth transfer.",
-        "The key is to balance affordability with protection."
-      ],
-      "examples": [
-        "A person may have a 10-year and 20-year policy at the same time."
-      ],
-      "key_takeaways": [
-        "Laddering reduces cost over time",
-        "Match coverage to life stages",
-        "Think long-term when planning"
-      ],
-      "quiz": [
+          "correct_answer": 2,
+          "explanation": "Regular reviews keep coverage aligned with changing life needs."
+        },
         {
           "question": "What is laddering?",
-          "options": [
-            "Buying one large policy",
-            "Using multiple policies with different terms",
-            "Canceling policies",
-            "Avoiding insurance"
-          ],
-          "answer": "Using multiple policies with different terms"
-        }
-      ]
-    },
-    {
-      "title": "Case Studies & Practice",
-      "duration": "6 min",
-      "objective": "Apply what you’ve learned to real-life scenarios.",
-      "lesson": [
-        "Understanding concepts is important, but applying them is what builds confidence.",
-        "In real life, every person’s situation is different.",
-        "You must consider income, family needs, and long-term goals."
-      ],
-      "examples": [
-        "A young professional may choose term insurance with low premiums.",
-        "A parent may choose higher coverage with added riders."
-      ],
-      "key_takeaways": [
-        "Every situation is unique",
-        "Apply concepts based on real needs",
-        "Practice improves decision-making"
-      ],
-      "quiz": [
+          "options": ["Buying one large policy", "Using multiple policies with different terms", "Canceling policies", "Avoiding insurance"],
+          "correct_answer": 1,
+          "explanation": "Laddering combines different term lengths to match future obligations."
+        },
         {
           "question": "Why are case studies important?",
-          "options": [
-            "They replace learning",
-            "They help apply knowledge",
-            "They reduce cost",
-            "They simplify policies"
-          ],
-          "answer": "They help apply knowledge"
+          "options": ["They replace learning", "They help apply knowledge", "They reduce cost", "They simplify policies"],
+          "correct_answer": 1,
+          "explanation": "Case studies help turn concepts into practical decision making."
         }
       ]
     }

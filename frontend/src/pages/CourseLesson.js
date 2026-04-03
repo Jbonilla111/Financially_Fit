@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCourseById } from "../api";
+import { getCourseById, completeLessonProgress } from "../api";
 import "./FoundationsLifeLessons.css";
 
 function CourseLesson() {
@@ -15,6 +15,7 @@ function CourseLesson() {
   // State for lesson progress
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState({});
+  const [moduleStartedAt, setModuleStartedAt] = useState(Date.now());
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -30,6 +31,10 @@ function CourseLesson() {
     };
     fetchCourse();
   }, [courseId]);
+
+  useEffect(() => {
+    setModuleStartedAt(Date.now());
+  }, [currentModuleIndex]);
 
   if (loading) return <div style={{textAlign: "center", padding: "50px"}}>Loading lesson...</div>;
   if (error || !course) return <div style={{textAlign: "center", padding: "50px", color: "red"}}>{error}</div>;
@@ -52,12 +57,41 @@ function CourseLesson() {
 
   const currentModule = modules[currentModuleIndex];
 
+  const getLoggedInUserId = () => {
+    const userStr = localStorage.getItem("user");
+    const localUser = userStr ? JSON.parse(userStr) : null;
+    return localUser?.id;
+  };
+
+  const markCurrentLessonComplete = async () => {
+    const userId = getLoggedInUserId();
+    if (!userId || !currentModule?.id) {
+      return;
+    }
+
+    const elapsedSeconds = Math.max(30, Math.round((Date.now() - moduleStartedAt) / 1000));
+
+    try {
+      const progress = await completeLessonProgress(userId, {
+        course_id: Number(courseId),
+        title_id: currentModule.id,
+        time_spent_seconds: elapsedSeconds,
+      });
+
+      window.dispatchEvent(new CustomEvent("ff-progress-updated", { detail: progress }));
+    } catch (err) {
+      console.error("Failed to save lesson progress", err);
+    }
+  };
+
   // Handle quiz selection
   const handleQuizAnswer = (questionId, option) => {
     setQuizAnswers(prev => ({ ...prev, [questionId]: option }));
   };
 
-  const nextModule = () => {
+  const nextModule = async () => {
+    await markCurrentLessonComplete();
+
     if (currentModuleIndex < modules.length - 1) {
       setCurrentModuleIndex(prev => prev + 1);
       window.scrollTo(0, 0);
