@@ -86,3 +86,12 @@ export const saveCalculation = async (userId, toolType, inputs) => {
   }
   return response.json();
 };
+
+export const getCalculationHistory = async (userId) => {
+  const response = await fetch(`${API_URL}/tools/${userId}/history`);
+  if (!response.ok) {
+    console.error('Failed to fetch calculation history');
+    return [];
+  }
+  return response.json();
+};

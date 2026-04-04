@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './Tools.css';
 import Navbar from '../components/Navbar';
-import { saveCalculation } from '../api';
+import { saveCalculation, getCalculationHistory } from '../api';
 
 function Tools() {
   const [activeTab, setActiveTab] = useState('Loan');
   const [userId, setUserId] = useState(null);
-
-useEffect(() => {
+  const [history, setHistory] = useState([]);
+  useEffect(() => {
   const user = JSON.parse(localStorage.getItem('user'));
-  if (user) setUserId(user.id || user.user_id);
+  if (user) {
+    setUserId(user.id || user.user_id);
+    getCalculationHistory(user.id || user.user_id).then(setHistory);
+  }
 }, []);
-
   // Loan state
   const [loanAmount, setLoanAmount] = useState(200000);
   const [interestRate, setInterestRate] = useState(5);
@@ -372,6 +374,30 @@ useEffect(() => {
                 </div>
               </div>
             )}
+          </div>
+        )}
+        {history.length > 0 && (
+          <div className="history-section">
+            <h3> Your Calculation History</h3>
+            {history.slice().reverse().map((calc) => {
+              const results = JSON.parse(calc.results);
+              const date = new Date(calc.created_at).toLocaleDateString();
+              return (
+                <div key={calc.id} className="history-item">
+                  <div className="history-header">
+                    <span className="history-type">{calc.tool_type.toUpperCase()}</span>
+                    <span className="history-date">{date}</span>
+                  </div>
+                  <div className="history-results">
+                    {Object.entries(results).map(([key, value]) => (
+                      <span key={key} className="history-result-item">
+                        {key.replace(/_/g, ' ')}: <strong>${value}</strong>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
