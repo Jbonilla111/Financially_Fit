@@ -14,12 +14,10 @@ import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
 import Courses from './pages/Courses';
-import { useUser } from './context/UserContext';
 import CourseLanding from './pages/CourseLanding';
+import CoursePlayer from './pages/CoursePlayer'; // 🔥 NEW
+import { useUser } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
-import FoundationsLifeInsurance from './pages/FoundationsLifeInsurance';
-import FoundationsLifeLessons from './pages/FoundationsLifeLessons';
-
 
 function App() {
   const { darkMode } = useUser();
@@ -27,6 +25,8 @@ function App() {
   return (
     <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
       <Routes>
+
+        {/* 🏠 Home */}
         <Route path="/" element={
           <>
             <Navbar />
@@ -41,17 +41,21 @@ function App() {
             <HomeFooterSection />
           </>
         } />
+
+        {/* 📚 Courses */}
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseLanding />} />
+        <Route path="/courses/:courseId/start" element={<CoursePlayer />} />
+
+        {/* 🛠 Other Pages */}
         <Route path="/tools" element={<Tools />} />
         <Route path="/resources" element={<ExternalResourcesPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/settings" element={<Settings />} />
+
+        {/* 🔐 Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/courses" element={<Courses />} />
-  <Route path="/courses/:courseId" element={<CourseLanding />} />
-  <Route path="/courses/foundations-life-insurance" element={<FoundationsLifeInsurance />} />
-  <Route path="/courses/foundations-life-insurance/start" element={<FoundationsLifeLessons />} />
-  
 
       </Routes>
     </div>
