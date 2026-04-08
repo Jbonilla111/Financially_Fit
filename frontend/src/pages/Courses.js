@@ -17,24 +17,31 @@ function Courses() {
   const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
-    // real API endpoint
-    fetch('/api/courses')
-      .then(res => res.json())
-      .then(data => setCourses(data))
-      .catch(err => console.error(err));
+    fetch('http://localhost:8000/courses')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch courses: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('courses data:', data);
+        setCourses(data);
+      })
+      .catch((err) => console.error('Courses fetch error:', err));
   }, []);
 
-  const categories = ['All', ...new Set(courses.map(c => c.category || 'General'))];
+  const categories = ['All'];
 
   const filtered =
     activeCategory === 'All'
       ? courses
-      : courses.filter(c => c.category === activeCategory);
+      : courses;
 
   return (
     <div className="courses-page">
       <div className="courses-container">
-        <h1 className="courses-title">Courses</h1>
+        <h1 className="courses-name">Courses</h1>
 
         <div className="courses-tabs">
           {categories.map((cat, index) => (
@@ -49,23 +56,27 @@ function Courses() {
         </div>
 
         <div className="courses-grid">
-          {filtered.map((course) => {
-            const Icon = iconMap[course.id] || FaBook;
+          {filtered.length === 0 ? (
+            <p>No courses found.</p>
+          ) : (
+            filtered.map((course) => {
+              const Icon = iconMap[course.module_key] || FaBook;
 
-            return (
-              <Link
-                to={`/courses/${course.id}`}
-                key={course.id}
-                style={{ textDecoration: 'none' }}
-              >
-                <CourseCard
-                  title={course.title}
-                  hours={course.estimated_completion_time}
-                  icon={Icon}
-                />
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  to={`/courses/${course.id}`}
+                  key={course.id}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CourseCard
+                    title={course.name}
+                    hours={course.estimated_completion_time || 'Coming soon'}
+                    icon={Icon}
+                  />
+                </Link>
+              );
+            })
+          )}
         </div>
       </div>
     </div>
