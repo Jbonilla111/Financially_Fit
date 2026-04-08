@@ -72,3 +72,26 @@ export const getUserProgressSummary = async (userId) => {
   }
   return response.json();
 };
+
+export const saveCalculation = async (userId, toolType, inputs) => {
+  const response = await fetch(`${API_URL}/tools/${toolType}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...inputs, user_id: userId }),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    console.error('Failed to save calculation', error);
+    return null;
+  }
+  return response.json();
+};
+
+export const getCalculationHistory = async (userId) => {
+  const response = await fetch(`${API_URL}/tools/${userId}/history`);
+  if (!response.ok) {
+    console.error('Failed to fetch calculation history');
+    return [];
+  }
+  return response.json();
+};

@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
+from passlib.context import CryptContext
+from api.auth import create_access_token, verify_token
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List
@@ -7,15 +9,14 @@ from datetime import datetime, timezone
 from database import models, schemas
 from database.database import get_db
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    # Note: Passwords must be hashed in production! (using Passlib etc)
     normalized_username = user.username.strip()
     normalized_email = user.email.strip().lower()
-    fake_hashed_password = user.password
-    fake_hashed_password = fake_hashed_password + "notreallyhashed"
+    hashed_password = pwd_context.hash(user.password)
     
     # Check if user exists
     existing_user = db.query(models.User).filter(models.User.email == normalized_email).first()
@@ -26,24 +27,31 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if existing_username:
         raise HTTPException(status_code=400, detail="Username already registered")
 
-    db_user = models.User(username=normalized_username, email=normalized_email, hashed_password=fake_hashed_password)
+    db_user = models.User(username=normalized_username, email=normalized_email, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
-@router.post("/login", response_model=schemas.User)
+@router.post("/login")
 def login_user(user_login: schemas.UserLogin, db: Session = Depends(get_db)):
     normalized_email = user_login.email.strip().lower()
     user = db.query(models.User).filter(models.User.email == normalized_email).first()
     if not user:
         raise HTTPException(status_code=400, detail="Invalid credentials")
     
-    fake_hashed_password = user_login.password + "notreallyhashed"
-    if user.hashed_password != fake_hashed_password: # type: ignore
+    if not pwd_context.verify(user_login.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
-        
-    return user
+
+    access_token = create_access_token(data={"sub": str(user.id)})
+    
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user_id": user.id,
+        "username": user.username,
+        "email": user.email
+    }
 
 @router.get("/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
@@ -51,6 +59,10 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@router.post("/logout")
+def logout_user(token: str = Depends(verify_token)):
+    return {"message": "Successfully logged out"}
 
 @router.post("/{user_id}/progress", response_model=schemas.UserProgress)
 def add_user_progress(user_id: int, progress: schemas.UserProgressCreate, db: Session = Depends(get_db)):
