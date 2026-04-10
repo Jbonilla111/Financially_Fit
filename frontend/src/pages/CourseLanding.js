@@ -13,11 +13,17 @@ const getIconForCourse = (courseName) => {
   return FaBook;
 };
 
+const iconMap = {
+  life_insurance: FaUmbrella,
+  retirement_planning: FaPiggyBank,
+  debt_management: FaCreditCard,
+  emergency_fund_building: FaBook,
+  investment_basics: FaChartLine
+};
+
 function CourseLanding() {
   const { courseId } = useParams(); // Retrieves dynamic courseId from the URL path
   const navigate = useNavigate();
-
-  // State to hold dynamic course data
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,7 +58,6 @@ function CourseLanding() {
         <p className="foundation-description">
           {course.description || "Start learning the principles and foundations today!"}
         </p>
-
         <button
           className="start-course-btn"
           onClick={() => navigate(`/courses/${courseId}/start`)}
