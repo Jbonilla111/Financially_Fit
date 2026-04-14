@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../api';
+import { loginUser, registerUser } from '../api';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,11 +30,10 @@ function SignUp() {
     }
     
     try {
-      const user = await registerUser(name, email, password);
-      // Save user to local storage for fake auth session
+      await registerUser(name, email, password);
+      const user = await loginUser(email, password);
       localStorage.setItem('user', JSON.stringify(user));
       setError('');
-      // Force reload to re-evaluate localStorage in App.js
       window.location.href = '/';
     } catch (err) {
       setError(err.message);

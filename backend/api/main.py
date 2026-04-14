@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
+import os
 
 from database import models
 from database.database import engine
@@ -17,10 +18,16 @@ with engine.begin() as connection:
 
 app = FastAPI(title="Financially Fit API")
 
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",")
+    if origin.strip()
+]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with your frontend URL in production
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,3 +42,13 @@ app.include_router(tools.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Financially Fit Course API"}
+
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
+
+@app.get("/healthz")
+def healthz_check():
+    return {"status": "ok"}

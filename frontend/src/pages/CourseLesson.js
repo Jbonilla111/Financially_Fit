@@ -60,7 +60,7 @@ function CourseLesson() {
   const getLoggedInUserId = () => {
     const userStr = localStorage.getItem("user");
     const localUser = userStr ? JSON.parse(userStr) : null;
-    return localUser?.id;
+    return localUser?.id ?? localUser?.user_id;
   };
 
   const markCurrentLessonComplete = async () => {

@@ -15,7 +15,7 @@ import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
 import Courses from './pages/Courses';
 import CourseLanding from './pages/CourseLanding';
-import CoursePlayer from './pages/CoursePlayer'; // 🔥 NEW
+import CourseLesson from './pages/CourseLesson';
 import { useUser } from './context/UserContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ function App() {
             {/* Dynamic routing for DB-pulled courses */}
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:courseId" element={<CourseLanding />} />
-        <Route path="/courses/:courseId/start" element={<CoursePlayer />} />
+            <Route path="/courses/:courseId/start" element={<CourseLesson />} />
 
         <Route path="/tools" element={<Tools />} />
         <Route path="/resources" element={<ExternalResourcesPage />} />
