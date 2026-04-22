@@ -190,3 +190,31 @@ def read_user_progress_summary(user_id: int, db: Session = Depends(get_db)):
         goal_minutes=user.daily_goal_minutes,
         courses=course_summaries,
     )
+
+@router.put("/{user_id}", response_model=schemas.User)
+def update_user(user_id: int, user_update: schemas.UserUpdate, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if user_update.username is not None:
+        existing = db.query(models.User).filter(models.User.username == user_update.username).first()
+        if existing and existing.id != user_id:
+            raise HTTPException(status_code=400, detail="Username already taken")
+        user.username = user_update.username.strip()
+
+    if user_update.email is not None:
+        existing = db.query(models.User).filter(models.User.email == user_update.email).first()
+        if existing and existing.id != user_id:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        user.email = user_update.email.strip().lower()
+
+    if user_update.password is not None:
+        user.hashed_password = pwd_context.hash(user_update.password)
+
+    if user_update.daily_goal_minutes is not None:
+        user.daily_goal_minutes = user_update.daily_goal_minutes
+
+    db.commit()
+    db.refresh(user)
+    return user

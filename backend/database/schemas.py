@@ -219,3 +219,10 @@ class UserProgressSummary(BaseModel):
     total_minutes: int
     goal_minutes: int
     courses: List[CourseProgressSummary] = []
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    daily_goal_minutes: Optional[int] = None
+    
