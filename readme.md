@@ -110,6 +110,43 @@ docker compose down -v
 
 ---
 
+## Deployment Process
+
+The production deployment is designed to run behind a Traefik reverse proxy and uses `docker-compose.prod.yml` along with a deployment script.
+
+### Production Architecture
+
+- Traefik Integration: Services are exposed via Traefik labels, routing traffic based on hostnames and path prefixes.
+- Network Isolation: The database is kept secure on an internal Docker network (`financiallyfit-internal`), inaccessible from the outside.
+- Healthchecks: Both frontend and backend containers include healthchecks to ensure reliable service availability.
+
+### Deployment Steps
+
+1. Environment Variables:
+   The deployment script requires certain environment variables to be set. You can provide them inline or export them beforehand:
+   - `APP_HOSTNAME`: The domain name for the application (e.g., `financiallyfit.brain-server.com`)
+   - `POSTGRES_USER`: Database username
+   - `POSTGRES_PASSWORD`: Database password (must be changed from default)
+   - `POSTGRES_DB`: Database name
+
+2. Run the Deployment Script:
+   Execute the `deploy.sh` script to build and deploy the production stack:
+   ```bash
+   APP_HOSTNAME=financiallyfit.brain-server.com \
+   POSTGRES_USER=<user> \
+   POSTGRES_PASSWORD=<password> \
+   POSTGRES_DB=financiallyfit \
+   ./deploy.sh
+   ```
+
+   The script performs the following actions:
+   - Validates required environment variables.
+   - Generates a secure `JWT_SECRET_KEY` if one doesn't exist.
+   - Creates a `.env.prod` file with the necessary configuration.
+   - Runs `docker compose -f docker-compose.prod.yml up -d --build`.
+   - Waits for the backend to become healthy and runs the data seeding script (`import_data.py`) to populate initial course content.
+
+
 ## Project Structure
 
 ```
