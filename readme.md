@@ -7,7 +7,9 @@ A full-stack web application that helps users build financial literacy through s
 **Team:** Jazmin, Angella, Angel, Luke  
 **Course:** COMP 4610 – GUI Programming | UMass Lowell | 2026  
 **GitHub:** https://github.com/Jbonilla111/Financially_Fit
-
+**Website:** https://financiallyfit.brain-server.com/
+**Implementation Plan:** https://docs.google.com/spreadsheets/d/1mh5tO-BduKVvs7HRULEBIlCdurgnX2Flr5-XDfbDsiA/edit?usp=sharing
+**Presentation slides:** https://docs.google.com/presentation/d/12tyiL-wMLUmb0a0VogL2ldtajW-Id0O_Gt1TBZxXywc/edit?usp=sharing
 ---
 
 ## Tech Stack
