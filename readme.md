@@ -1,106 +1,181 @@
 # FinanciallyFit
 
-Financial education app with a React frontend and FastAPI backend.
+**Empowering Financial Literacy Through Intuitive Design**
 
-## Current deployment modes
+A full-stack web application that helps users build financial literacy through structured courses, interactive calculators, and personalized learning. Built with React, FastAPI, PostgreSQL, and Docker.
 
-- Local development: JWT mode (`AUTH_MODE=jwt`) with frontend at `http://localhost:3000` and backend at `http://localhost:8000`
-- Production target: Authentik forward-auth behind Traefik at `https://financiallyfit.brain-server.com`
+**Team:** Jazmin, Angella, Angel, Luke  
+**Course:** COMP 4610 – GUI Programming | UMass Lowell | 2026  
+**GitHub:** https://github.com/Jbonilla111/Financially_Fit
 
-## Local development
+---
 
-1. Copy `.env.example` to `.env` and adjust values if needed.
-2. Start services:
+## Tech Stack
 
-```bash
-docker compose --env-file .env up --build
-```
+| Layer | Technology |
+|---|---|
+| Frontend | React, React Router, Context API |
+| Backend | FastAPI (Python) |
+| Database | PostgreSQL |
+| Auth | JWT (JSON Web Tokens) + bcrypt |
+| DevOps | Docker Compose |
 
-3. Open `http://localhost:3000`.
+---
 
-## Production-oriented compose
+## Prerequisites
 
-The file `docker-compose.prod.yml` is the baseline for your server stack with:
+Make sure you have the following installed before running the app:
 
-- Traefik labels for `financiallyfit.brain-server.com`
-- Authentik middleware applied to both frontend and API routes
-- Backend API routing by path prefix on the same hostname
-- Internal DB network isolation
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (includes Docker Compose)
+- [Git](https://git-scm.com/)
 
-Deploy locally on the server with:
+That's it — no need to install Python, Node.js, or PostgreSQL separately. Docker handles everything.
 
-```bash
-APP_HOSTNAME=financiallyfit.brain-server.com \
-POSTGRES_USER=<user> \
-POSTGRES_PASSWORD=<password> \
-POSTGRES_DB=financiallyfit \
-./deploy.sh
-```
+---
 
-## Auth behavior implemented
+## Setup & Running the App
 
-- Added `/users/me` endpoint for authenticated identity bootstrap.
-- Added Auth mode switching in backend:
-	- `AUTH_MODE=jwt` uses bearer token validation.
-	- `AUTH_MODE=authentik` uses trusted Authentik headers from forward auth.
-- Added ownership checks for user-scoped endpoints:
-	- `/users/{id}` and progress endpoints
-	- `/tools/*` and calculation history endpoints
-
-## Remaining infrastructure steps
-
-- Wire production secrets in GitHub Actions for DB and Authentik credentials.
-- Import seed course content after first production boot:
+### Step 1 — Clone the repository
 
 ```bash
-docker compose --env-file .env.prod -f docker-compose.prod.yml exec backend python import_data.py
+git clone https://github.com/Jbonilla111/Financially_Fit.git
+cd Financially_Fit
 ```
 
-## Authentik automation
+### Step 2 — Start Docker Desktop
 
-`setup_auth.py` now provisions and updates the following idempotently:
+Make sure Docker Desktop is open and running on your machine before continuing.
 
-- Group: `financiallyfit-users`
-- Proxy provider: `financiallyfit-proxy`
-- Application: `financiallyfit`
-- Strict expression policy and policy binding (group membership required)
+### Step 3 — Start all services
 
-Environment variables used by `setup_auth.py`:
+```bash
+docker compose up --build
+```
 
-- `AUTHENTIK_URL`
-- `AUTHENTIK_API_TOKEN`
-- `APP_NAME` (defaults to `financiallyfit`)
-- `APP_HOSTNAME` (defaults to `financiallyfit.brain-server.com`)
-- `APP_INTERNAL_HOST` (defaults to `http://financiallyfit-backend:8000`)
-- `AUTHENTIK_GROUP_NAME` (defaults to `financiallyfit-users`)
-- `AUTHENTIK_POLICY_NAME` (defaults to `financiallyfit-access-policy`)
-- `AUTHENTIK_POLICY_EXPRESSION` (optional override)
+This will start 3 containers:
+- **frontend** — React app at `http://localhost:3000`
+- **backend** — FastAPI server at `http://localhost:8000`
+- **db** — PostgreSQL database at port `5432`
 
-## Production cutover checklist (brain-server runner)
 
-1. Confirm GitHub repo secrets are set:
-	- `AUTHENTIK_URL`
-	- `AUTHENTIK_API_TOKEN`
-	- `POSTGRES_USER`
-	- `POSTGRES_PASSWORD`
-	- `POSTGRES_DB`
-2. Confirm the self-hosted GitHub runner labels include `self-hosted`, `linux`, `brain-server`.
-3. Confirm infrastructure stack is healthy:
-	- Traefik running on `web-routing`
-	- Authentik outpost/middleware reachable
-	- Cloudflare tunnel routes `financiallyfit.brain-server.com` to Traefik
-4. Trigger workflow in `.github/workflows/deploy.yml` or push to `main`.
-5. Verify Authentik objects were created/updated:
-	- Group `financiallyfit-users`
-	- App `financiallyfit`
-	- Policy `financiallyfit-access-policy` bound to app
-6. Validate access control:
-	- User in `financiallyfit-users` gets app access
-	- Authenticated user outside group gets denied
-7. Run post-deploy seed import:
-	- `docker compose --env-file .env.prod -f docker-compose.prod.yml exec backend python import_data.py`
-8. Smoke test production:
-	- `GET /health` returns 200
-	- App home loads
-	- `/courses/` returns seeded modules
-	- Cross-user access to `/users/{other_id}/progress/summary` returns 403
+### Step 4 — Import course data (first time only)
+
+Once all containers are running, open a **new terminal window** and run:
+
+```bash
+docker compose exec backend python import_data.py
+```
+
+You should see output like:
+```
+INFO: Imported standardized course data from /seed-data/debt_management.json
+INFO: Imported standardized course data from /seed-data/emergency_fund.json
+INFO: Imported standardized course data from /seed-data/foundations-life-insurance.json
+INFO: Imported standardized course data from /seed-data/investment_basics.json
+INFO: Imported standardized course data from /seed-data/retirement_planning.json
+```
+
+only need to run this once. The data persists in the database after that.
+
+### Step 5 — Open the app
+
+Go to **http://localhost:3000** in your browser.
+
+---
+
+## Using the App
+
+1. **Sign up** for a new account on the signup page
+2. **Log in** with your credentials
+3. Browse the **Courses** page to explore financial literacy courses
+4. Use the **Tools** page to access financial calculators
+5. Complete the **Onboarding Quiz** for personalized course recommendations
+6. Update your profile and daily learning goal in **Settings**
+
+---
+
+## Stopping the App
+
+```bash
+docker compose down
+```
+
+To also delete the database data (full reset):
+
+```bash
+docker compose down -v
+```
+
+---
+
+## Project Structure
+
+```
+Financially_Fit/
+├── frontend/               # React app
+│   └── src/
+│       ├── pages/          # Login, Signup, Courses, Tools, Settings, etc.
+│       ├── components/     # Navbar, ProfileSidebar, QuizModal, etc.
+│       ├── context/        # UserContext for global state
+│       └── data/           # Course JSON files
+├── backend/                # FastAPI app
+│   ├── api/
+│   │   ├── auth.py         # JWT authentication
+│   │   └── routers/        # users, courses, tools, titles
+│   ├── database/
+│   │   ├── models.py       # SQLAlchemy models
+│   │   └── schemas.py      # Pydantic schemas
+│   └── import_data.py      # Course data seeding script
+├── docker-compose.yml      # Local development setup
+└── README.md
+```
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/users/` | Create new user |
+| POST | `/users/login` | Login and get JWT token |
+| POST | `/users/logout` | Logout |
+| GET | `/users/{id}` | Get user profile |
+| PUT | `/users/{id}` | Update user profile |
+| GET | `/users/{id}/progress` | Get learning progress |
+| POST | `/users/{id}/progress/complete` | Mark lesson complete |
+| GET | `/courses/` | Get all courses |
+| GET | `/courses/{id}` | Get single course |
+| GET | `/titles/{id}` | Get lesson by ID |
+| GET | `/titles/{id}/questions/` | Get quiz questions |
+| POST | `/tools/loan` | Loan calculator |
+| POST | `/tools/investment` | Investment calculator |
+| POST | `/tools/savings` | Savings calculator |
+
+Full API docs available at **http://localhost:8000/docs** when the app is running.
+
+---
+
+## Troubleshooting
+
+**Courses page is blank?**
+Make sure you ran the import script: `docker compose exec backend python import_data.py`
+
+**Port already in use?**
+Stop any other apps using ports 3000, 8000, or 5432, then run `docker compose down` and try again.
+
+**Docker containers not starting?**
+Make sure Docker Desktop is open and running, then try `docker compose down` followed by `docker compose up --build`.
+
+**Database connection error?**
+The backend needs the database to be fully ready. Wait a few seconds after startup and try refreshing.
+
+---
+
+## Team Contributions
+
+| Member | Role | Contributions |
+|---|---|---|
+| Jazmin | Frontend Developer | React Router, dark mode, navbar search, calculators, onboarding quiz, Docker integration |
+| Angel | Frontend Developer | Courses page UI, course content, CourseLanding, CourseLesson, CoursePlayer |
+| Angella | Backend Developer | JWT authentication, password hashing, API integration, data validation, profile update endpoint, course import fix |
+| Luke | Backend Developer | FastAPI endpoints, PostgreSQL schema, Docker Compose setup, database models, SQLAlchemy ORM |
