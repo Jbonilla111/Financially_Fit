@@ -6,6 +6,14 @@ import { FaBook, FaPiggyBank, FaCreditCard, FaUmbrella, FaChartLine } from 'reac
 import { Link, useNavigate } from 'react-router-dom'; 
 import { getCourses } from '../api'; // Import new API function
 
+const iconMap = {
+  life_insurance: FaUmbrella,
+  retirement_planning: FaPiggyBank,
+  debt_management: FaCreditCard,
+  emergency_fund_building: FaBook,
+  investment_basics: FaChartLine,
+};
+
 // A simple dictionary to fetch a random or associated icon based on course keyword
 const getIconForCourse = (courseName) => {
   const lowerName = courseName.toLowerCase();
@@ -64,17 +72,27 @@ function Courses() {
         <p className="courses-subtitle">Choose a course and start your financial literacy journey today!</p>
 
         <div className="courses-grid">
-          {courses.map((course) => (
-            // Route dynamically to the int ID from DB
-            <Link to={`/courses/${course.id}`} key={course.id} style={{ textDecoration: 'none' }}>
-              <CourseCard
-                title={course.name}
-                // Placeholder hours since DB doesn't have duration currently
-                hours="Self-paced" 
-                icon={getIconForCourse(course.name)}
-              />
-            </Link>
-          ))}
+          {courses.length === 0 ? (
+            <p>No courses found.</p>
+          ) : (
+            courses.map((course) => {
+              const Icon = iconMap[course.module_key] || getIconForCourse(course.name);
+
+              return (
+                <Link
+                  to={`/courses/${course.id}`}
+                  key={course.id}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CourseCard
+                    title={course.name}
+                    hours={course.estimated_completion_time || 'Self-paced'}
+                    icon={Icon}
+                  />
+                </Link>
+              );
+            })
+          )}
         </div>
       </div>
     </div>

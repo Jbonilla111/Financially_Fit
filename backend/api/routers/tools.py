@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 import json
+from api.auth import enforce_user_ownership, get_current_user_id
 
 from database import models, schemas
 from database.database import get_db
@@ -12,8 +13,10 @@ router = APIRouter(prefix="/tools", tags=["Tools"])
 @router.post("/loan")
 def calculate_loan(
     request: schemas.LoanCalculationRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
 ):
+    enforce_user_ownership(request.user_id, current_user_id)
     # Calculate monthly payment
     monthly_rate = request.annual_interest_rate / 100 / 12
     n_payments = request.loan_term_years * 12
@@ -49,8 +52,10 @@ def calculate_loan(
 @router.post("/investment")
 def calculate_investment(
     request: schemas.InvestmentCalculationRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
 ):
+    enforce_user_ownership(request.user_id, current_user_id)
     monthly_rate = request.annual_interest_rate / 100 / 12
     n_payments = request.years * 12
 
@@ -80,8 +85,10 @@ def calculate_investment(
 @router.post("/savings")
 def calculate_savings(
     request: schemas.SavingsCalculationRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
 ):
+    enforce_user_ownership(request.user_id, current_user_id)
     monthly_rate = request.annual_interest_rate / 100 / 12
     months = 0
     current = request.current_savings
@@ -113,8 +120,10 @@ def calculate_savings(
 @router.post("/insurance")
 def calculate_insurance(
     request: schemas.InsuranceCalculationRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
 ):
+    enforce_user_ownership(request.user_id, current_user_id)
     # Basic insurance estimate formula
     base_rate = 0.001
     age_factor = 1 + (request.age - 25) * 0.03
@@ -141,7 +150,12 @@ def calculate_insurance(
 
 # --- Get user calculation history ---
 @router.get("/{user_id}/history", response_model=List[schemas.ToolCalculation])
-def get_calculation_history(user_id: int, db: Session = Depends(get_db)):
+def get_calculation_history(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    enforce_user_ownership(user_id, current_user_id)
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

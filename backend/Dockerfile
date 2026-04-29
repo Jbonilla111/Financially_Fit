@@ -5,7 +5,8 @@ RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    UVICORN_RELOAD=--reload
 
 # Create a non-root user
 RUN addgroup --system appgroup && adduser --system --group appuser
@@ -29,4 +30,4 @@ USER appuser
 
 # Expose port and run the server
 EXPOSE 8000
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port 8000 ${UVICORN_RELOAD}"]

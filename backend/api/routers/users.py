@@ -1,19 +1,24 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from passlib.context import CryptContext
-from api.auth import create_access_token, verify_token
+from api.auth import create_access_token, enforce_user_ownership, get_current_user_id
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List
 from datetime import datetime, timezone
+import os
 
 from database import models, schemas
 from database.database import get_db
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter(prefix="/users", tags=["Users"])
+AUTH_MODE = os.getenv("AUTH_MODE", "jwt").strip().lower()
 
 @router.post("/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    if AUTH_MODE == "authentik":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Signup is managed by Authentik")
+
     normalized_username = user.username.strip()
     normalized_email = user.email.strip().lower()
     hashed_password = pwd_context.hash(user.password)
@@ -35,6 +40,9 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login")
 def login_user(user_login: schemas.UserLogin, db: Session = Depends(get_db)):
+    if AUTH_MODE == "authentik":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Login is managed by Authentik")
+
     normalized_email = user_login.email.strip().lower()
     user = db.query(models.User).filter(models.User.email == normalized_email).first()
     if not user:
@@ -48,24 +56,47 @@ def login_user(user_login: schemas.UserLogin, db: Session = Depends(get_db)):
     return {
         "access_token": access_token,
         "token_type": "bearer",
+        "id": user.id,
         "user_id": user.id,
         "username": user.username,
         "email": user.email
     }
 
+
+@router.get("/me", response_model=schemas.User)
+def read_authenticated_user(
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    user = db.query(models.User).filter(models.User.id == current_user_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
 @router.get("/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+def read_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    enforce_user_ownership(user_id, current_user_id)
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
 @router.post("/logout")
-def logout_user(token: str = Depends(verify_token)):
+def logout_user(current_user_id: int = Depends(get_current_user_id)):
     return {"message": "Successfully logged out"}
 
 @router.post("/{user_id}/progress", response_model=schemas.UserProgress)
-def add_user_progress(user_id: int, progress: schemas.UserProgressCreate, db: Session = Depends(get_db)):
+def add_user_progress(
+    user_id: int,
+    progress: schemas.UserProgressCreate,
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    enforce_user_ownership(user_id, current_user_id)
     # Verify user exists
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
@@ -83,7 +114,9 @@ def complete_lesson_progress(
     user_id: int,
     payload: schemas.LessonCompletionRequest,
     db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
 ):
+    enforce_user_ownership(user_id, current_user_id)
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -132,13 +165,23 @@ def complete_lesson_progress(
     return db_progress
 
 @router.get("/{user_id}/progress", response_model=List[schemas.UserProgress])
-def read_user_progress(user_id: int, db: Session = Depends(get_db)):
+def read_user_progress(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    enforce_user_ownership(user_id, current_user_id)
     progress = db.query(models.UserProgress).filter(models.UserProgress.user_id == user_id).all()
     return progress
 
 
 @router.get("/{user_id}/progress/summary", response_model=schemas.UserProgressSummary)
-def read_user_progress_summary(user_id: int, db: Session = Depends(get_db)):
+def read_user_progress_summary(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_current_user_id),
+):
+    enforce_user_ownership(user_id, current_user_id)
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

@@ -8,12 +8,15 @@ function Tools() {
   const [userId, setUserId] = useState(null);
   const [history, setHistory] = useState([]);
   useEffect(() => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    setUserId(user.id || user.user_id);
-    getCalculationHistory(user.id || user.user_id).then(setHistory);
-  }
-}, []);
+    const userStr = localStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : null;
+    const resolvedUserId = user?.id ?? user?.user_id;
+
+    if (resolvedUserId) {
+      setUserId(resolvedUserId);
+      getCalculationHistory(resolvedUserId).then(setHistory);
+    }
+  }, []);
   // Loan state
   const [loanAmount, setLoanAmount] = useState(200000);
   const [interestRate, setInterestRate] = useState(5);

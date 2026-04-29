@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../api';
+import { loginUser, registerUser } from '../api';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,11 +30,10 @@ function SignUp() {
     }
     
     try {
-      const user = await registerUser(name, email, password);
-      // Save user to local storage for fake auth session
+      await registerUser(name, email, password);
+      const user = await loginUser(email, password);
       localStorage.setItem('user', JSON.stringify(user));
       setError('');
-      // Force reload to re-evaluate localStorage in App.js
       window.location.href = '/';
     } catch (err) {
       setError(err.message);
@@ -49,10 +48,12 @@ function SignUp() {
 
         {error && <p className="signup-error">{error}</p>}
 
-        <div className="signup-form">
+        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); handleSignUp(); }}>
           <label>Full Name</label>
           <input
             type="text"
+            name="name"
+            autoComplete="name"
             placeholder="John Smith"
             value={name}
             onChange={e => setName(e.target.value)}
@@ -61,6 +62,8 @@ function SignUp() {
           <label>Email Address</label>
           <input
             type="email"
+            name="email"
+            autoComplete="username"
             placeholder="example@example.com"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -69,6 +72,8 @@ function SignUp() {
           <label>Password</label>
           <input
             type="password"
+            name="password"
+            autoComplete="new-password"
             placeholder="At least 6 characters"
             value={password}
             onChange={e => setPassword(e.target.value)}
@@ -77,12 +82,14 @@ function SignUp() {
           <label>Confirm Password</label>
           <input
             type="password"
+            name="confirmPassword"
+            autoComplete="new-password"
             placeholder="Re-enter your password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
 
-          <button className="signup-btn" onClick={handleSignUp}>
+          <button type="submit" className="signup-btn">
             Sign Up
           </button>
 
@@ -90,7 +97,7 @@ function SignUp() {
             Already have an account?{' '}
             <span onClick={() => navigate('/login')}>Login</span>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -14,9 +14,9 @@ import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import HomeFooterSection from './components/HomeFooterSection';
 import Courses from './pages/Courses';
-import { useUser } from './context/UserContext';
 import CourseLanding from './pages/CourseLanding';
-import CourseLesson from './pages/CourseLesson'; // Imported the dynamic Lesson component
+import CourseLesson from './pages/CourseLesson';
+import { useUser } from './context/UserContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
@@ -45,14 +45,16 @@ function App() {
             <Navigate to="/login" replace />
           )
         } />
+
+            {/* Dynamic routing for DB-pulled courses */}
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseLanding />} />
+            <Route path="/courses/:courseId/start" element={<CourseLesson />} />
+
         <Route path="/tools" element={<Tools />} />
         <Route path="/resources" element={<ExternalResourcesPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/settings" element={<Settings />} />
-        {/* Dynamic routing for DB-pulled courses */}
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:courseId" element={<CourseLanding />} />
-        <Route path="/courses/:courseId/start" element={<CourseLesson />} />
       </Routes>
     </div>
   );

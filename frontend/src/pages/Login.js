@@ -22,13 +22,11 @@ function Login() {
       setError('Password must be at least 6 characters');
       return;
     }
-    
+
     try {
       const user = await loginUser(email, password);
-      // Save user to local storage for fake auth session
       localStorage.setItem('user', JSON.stringify(user));
       setError('');
-      // Force reload to re-evaluate localStorage in App.js
       window.location.href = '/';
     } catch (err) {
       setError(err.message);
@@ -43,10 +41,12 @@ function Login() {
 
         {error && <p className="login-error">{error}</p>}
 
-        <div className="login-form">
+        <form className="login-form" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
           <label>Email Address</label>
           <input
             type="email"
+            name="email"
+            autoComplete="username"
             placeholder="example@example.com"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -55,12 +55,14 @@ function Login() {
           <label>Password</label>
           <input
             type="password"
+            name="password"
+            autoComplete="current-password"
             placeholder="Enter your password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
 
-          <button className="login-btn" onClick={handleLogin}>
+          <button type="submit" className="login-btn">
             Login
           </button>
 
@@ -68,7 +70,7 @@ function Login() {
             Don't have an account?{' '}
             <span onClick={() => navigate('/signup')}>Sign Up</span>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );
