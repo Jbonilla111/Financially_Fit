@@ -49,4 +49,8 @@ echo "Using APP_HOSTNAME=${APP_HOSTNAME}"
 
 docker compose --env-file .env.prod -f docker-compose.prod.yml up -d --build
 
+echo "Waiting for backend to be healthy before seeding data..."
+# The healthcheck in docker-compose.prod.yml will ensure it's up, but a small sleep or direct exec is fine since 'up -d' waits for depends_on condition: service_healthy (which backend has). Wait, depends_on db: service_healthy is in backend, but frontend depends on backend: service_healthy. So by the time 'up -d' finishes, backend is healthy!
+docker compose --env-file .env.prod -f docker-compose.prod.yml exec -T backend python import_data.py
+
 echo "Deployment finished for https://${APP_HOSTNAME}"

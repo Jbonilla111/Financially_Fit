@@ -1,27 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getCourseById } from '../api';
 
 function CoursePlayer() {
   const { courseId } = useParams();
   const [courseData, setCourseData] = useState(null);
   const [currentLesson, setCurrentLesson] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/courses/${courseId}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to fetch course: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('course player data:', data);
+    let mounted = true;
+
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getCourseById(courseId);
+        if (!mounted) return;
         setCourseData(data);
-      })
-      .catch((err) => console.error('Course player fetch error:', err));
+        setCurrentLesson(0);
+      } catch (err) {
+        console.error('Course player fetch error:', err);
+        if (!mounted) return;
+        setError('Unable to load this course right now.');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    fetchCourse();
+
+    return () => {
+      mounted = false;
+    };
   }, [courseId]);
 
-  if (!courseData) return <p>Loading course...</p>;
+  if (loading) return <p>Loading course...</p>;
+  if (error || !courseData) return <p>{error || 'Course not found.'}</p>;
 
   const lessons = courseData.titles || [];
   const lesson = lessons[currentLesson];

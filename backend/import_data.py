@@ -143,10 +143,24 @@ def import_data(json_file_path):
 
 if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    frontend_data_dir = os.path.normpath(os.path.join(base_dir, "..", "frontend", "src", "data"))
+    candidate_dirs = []
 
-    if not os.path.isdir(frontend_data_dir):
-        raise FileNotFoundError(f"Could not find frontend data directory: {frontend_data_dir}")
+    env_dir = os.getenv("IMPORT_DATA_DIR")
+    if env_dir:
+        candidate_dirs.append(env_dir)
+
+    candidate_dirs.extend(
+        [
+            os.path.normpath(os.path.join(base_dir, "..", "frontend", "src", "data")),
+            "/seed-data",
+        ]
+    )
+
+    frontend_data_dir = next((path for path in candidate_dirs if os.path.isdir(path)), None)
+    if not frontend_data_dir:
+        raise FileNotFoundError(
+            f"Could not find data directory. Checked: {', '.join(candidate_dirs)}"
+        )
 
     json_files = sorted(glob(os.path.join(frontend_data_dir, "*.json")))
     if not json_files:

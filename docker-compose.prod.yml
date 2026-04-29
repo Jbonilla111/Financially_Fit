@@ -48,7 +48,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web-routing"
-      - "traefik.http.routers.financiallyfit-api.rule=Host(`${APP_HOSTNAME}`) && (PathPrefix(`/users`) || PathPrefix(`/tools`) || PathPrefix(`/courses`) || PathPrefix(`/titles`) || PathPrefix(`/health`) || PathPrefix(`/healthz`))"
+      - "traefik.http.routers.financiallyfit-api.rule=(Host(`${APP_HOSTNAME}`) || Host(`100.75.217.26`)) && (PathPrefix(`/users`) || PathPrefix(`/tools`) || PathPrefix(`/courses`) || PathPrefix(`/titles`) || PathPrefix(`/health`) || PathPrefix(`/healthz`))"
       - "traefik.http.routers.financiallyfit-api.entrypoints=web"
       - "traefik.http.routers.financiallyfit-api.priority=100"
       - "traefik.http.services.financiallyfit-api.loadbalancer.server.port=8000"
@@ -81,7 +81,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web-routing"
-      - "traefik.http.routers.financiallyfit-web.rule=Host(`${APP_HOSTNAME}`)"
+      - "traefik.http.routers.financiallyfit-web.rule=Host(`${APP_HOSTNAME}`) || Host(`100.75.217.26`)"
       - "traefik.http.routers.financiallyfit-web.entrypoints=web"
       - "traefik.http.routers.financiallyfit-web.priority=10"
       - "traefik.http.services.financiallyfit-web.loadbalancer.server.port=8080"

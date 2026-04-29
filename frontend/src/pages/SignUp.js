@@ -48,10 +48,12 @@ function SignUp() {
 
         {error && <p className="signup-error">{error}</p>}
 
-        <div className="signup-form">
+        <form className="signup-form" onSubmit={(e) => { e.preventDefault(); handleSignUp(); }}>
           <label>Full Name</label>
           <input
             type="text"
+            name="name"
+            autoComplete="name"
             placeholder="John Smith"
             value={name}
             onChange={e => setName(e.target.value)}
@@ -60,6 +62,8 @@ function SignUp() {
           <label>Email Address</label>
           <input
             type="email"
+            name="email"
+            autoComplete="username"
             placeholder="example@example.com"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -68,6 +72,8 @@ function SignUp() {
           <label>Password</label>
           <input
             type="password"
+            name="password"
+            autoComplete="new-password"
             placeholder="At least 6 characters"
             value={password}
             onChange={e => setPassword(e.target.value)}
@@ -76,12 +82,14 @@ function SignUp() {
           <label>Confirm Password</label>
           <input
             type="password"
+            name="confirmPassword"
+            autoComplete="new-password"
             placeholder="Re-enter your password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
 
-          <button className="signup-btn" onClick={handleSignUp}>
+          <button type="submit" className="signup-btn">
             Sign Up
           </button>
 
@@ -89,7 +97,7 @@ function SignUp() {
             Already have an account?{' '}
             <span onClick={() => navigate('/login')}>Login</span>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );
